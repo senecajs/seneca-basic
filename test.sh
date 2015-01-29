@@ -5,6 +5,6 @@
 # because this plugin is itself a dependency of the seneca module.
 
 if [ ! -d "./node_modules/seneca" ]; then
-  npm install seneca
+  npm install seneca@0.6.0-rc2
 fi
 ./node_modules/.bin/mocha test/*.test.js

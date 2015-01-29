@@ -1,4 +1,5 @@
-/* Copyright (c) 2011-2014 Richard Rodger */
+/* Copyright (c) 2011-2015 Richard Rodger */
+/* jshint node:true, asi:true, eqnull:true */
 "use strict";
 
 
@@ -7,7 +8,7 @@ var util = require('util')
 var path = require('path')
 
 var nid   = require('nid')
-var _     = require('underscore')
+var _     = require('lodash')
 var async = require('async')
 
 
@@ -20,9 +21,10 @@ function nil(){
 }
 
 
-
 module.exports = function( options ) {
-  var name = 'util'
+  /* jshint validthis:true */
+
+  var name = 'basic'
   var seneca = this
 
 
@@ -31,28 +33,48 @@ module.exports = function( options ) {
   },options)
 
 
-  // legacy cmd
+  // legacy cmds use role:'util'
+
   seneca.add({role:name,cmd:'quickcode'},cmd_quickcode)
+  seneca.add({role:'util',cmd:'quickcode'},cmd_quickcode)
   
   seneca.add({role:name,cmd:'generate_id'},cmd_generate_id)
+  seneca.add({role:'util',cmd:'generate_id'},cmd_generate_id)
+
 
   seneca.add({
     role:   name,
     cmd:    'ensure_entity',
 
     pin:    {required$:true},
+
+    // TODO: accept entity spec here, e.g. strings like 'sys/user'
     entmap: {object$:true,required$:true},
+
   }, ensure_entity)
 
+  seneca.add({role:'util', cmd:'ensure_entity' }, ensure_entity)
+
+
   seneca.add({role:name,cmd:'define_sys_entity'},cmd_define_sys_entity)
+  seneca.add({role:'util',cmd:'define_sys_entity'},cmd_define_sys_entity)
 
 
+  // The note patterns let you pass information to plugins that are
+  // loaded after the current plugin. See seneca-admin
 
   seneca.add({role:name,note:true,cmd:'set'},  note_set)
   seneca.add({role:name,note:true,cmd:'get'},  note_get)
   seneca.add({role:name,note:true,cmd:'list'}, note_list)
   seneca.add({role:name,note:true,cmd:'push'}, note_push)
   seneca.add({role:name,note:true,cmd:'pop'},  note_pop)
+
+  seneca.add({role:'util',note:true,cmd:'set'},  note_set)
+  seneca.add({role:'util',note:true,cmd:'get'},  note_get)
+  seneca.add({role:'util',note:true,cmd:'list'}, note_list)
+  seneca.add({role:'util',note:true,cmd:'push'}, note_push)
+  seneca.add({role:'util',note:true,cmd:'pop'},  note_pop)
+
 
 
   var note = {}
@@ -126,6 +148,7 @@ module.exports = function( options ) {
 
     seneca.wrap(args.pin,function(args,done){
       var seneca = this
+
       seneca.util.recurse(
         _.keys(entmap),
         function(entarg,next){
