@@ -75,16 +75,16 @@ module.exports = function( options ) {
   seneca.add({role:name,note:true,cmd:'push'}, note_push)
   seneca.add({role:name,note:true,cmd:'pop'},  note_pop)
 
-  seneca.add({role:'util',note:true,cmd:'set',  deprecate$:util_dep_msg},  note_set)
-  seneca.add({role:'util',note:true,cmd:'get',  deprecate$:util_dep_msg},  note_get)
+  seneca.add({role:'util',note:true,cmd:'set',  deprecate$:util_dep_msg}, note_set)
+  seneca.add({role:'util',note:true,cmd:'get',  deprecate$:util_dep_msg}, note_get)
   seneca.add({role:'util',note:true,cmd:'list', deprecate$:util_dep_msg}, note_list)
   seneca.add({role:'util',note:true,cmd:'push', deprecate$:util_dep_msg}, note_push)
-  seneca.add({role:'util',note:true,cmd:'pop',  deprecate$:util_dep_msg},  note_pop)
+  seneca.add({role:'util',note:true,cmd:'pop',  deprecate$:util_dep_msg}, note_pop)
 
 
 
   var note_single = {}
-  var note_list = {}
+  var note_values = {}
 
 
   function note_set(args,done)  { 
@@ -98,17 +98,17 @@ module.exports = function( options ) {
 
 
   function note_list(args,done) { 
-    this.good( note_list[args.key] || [] ) 
+    this.good( note_values[args.key] || [] ) 
   }
 
   function note_push(args,done) {
-    note_list[args.key] = note_list[args.key] || []
-    note_list[args.key].push(args.value)
+    note_values[args.key] = note_values[args.key] || []
+    note_values[args.key].push(args.value)
     this.good()
   }
 
   function note_pop(args,done) {
-    this.good({ value: note_list[args.key].pop() })
+    this.good({ value: note_values[args.key].pop() })
   }
 
 
