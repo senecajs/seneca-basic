@@ -33,15 +33,21 @@ module.exports = function( options ) {
   },options)
 
 
+  // Deprecation messages.
+  var marked_remove = 'marked for removal in future'
+  var util_dep_msg  = 'role:util patterns are replaced by role:basic.'
+
+
   // legacy cmds use role:'util'
 
-  seneca.add({role:name,cmd:'quickcode'},cmd_quickcode)
-  seneca.add({role:'util',cmd:'quickcode'},cmd_quickcode)
+  seneca.add({role:name,cmd:'quickcode',   deprecate$:marked_remove}, cmd_quickcode)
+  seneca.add({role:'util',cmd:'quickcode', deprecate$:util_dep_msg},  cmd_quickcode)
   
   seneca.add({role:name,cmd:'generate_id'},cmd_generate_id)
   seneca.add({role:'util',cmd:'generate_id'},cmd_generate_id)
 
 
+  // TODO: this should be a utility function, not a pattern
   seneca.add({
     role:   name,
     cmd:    'ensure_entity',
@@ -69,41 +75,41 @@ module.exports = function( options ) {
   seneca.add({role:name,note:true,cmd:'push'}, note_push)
   seneca.add({role:name,note:true,cmd:'pop'},  note_pop)
 
-  seneca.add({role:'util',note:true,cmd:'set'},  note_set)
-  seneca.add({role:'util',note:true,cmd:'get'},  note_get)
-  seneca.add({role:'util',note:true,cmd:'list'}, note_list)
-  seneca.add({role:'util',note:true,cmd:'push'}, note_push)
-  seneca.add({role:'util',note:true,cmd:'pop'},  note_pop)
+  seneca.add({role:'util',note:true,cmd:'set',  deprecate$:util_dep_msg},  note_set)
+  seneca.add({role:'util',note:true,cmd:'get',  deprecate$:util_dep_msg},  note_get)
+  seneca.add({role:'util',note:true,cmd:'list', deprecate$:util_dep_msg}, note_list)
+  seneca.add({role:'util',note:true,cmd:'push', deprecate$:util_dep_msg}, note_push)
+  seneca.add({role:'util',note:true,cmd:'pop',  deprecate$:util_dep_msg},  note_pop)
 
 
 
-  var note = {}
+  var note_single = {}
+  var note_list = {}
 
-  function note_set(args,done)  { this.good(note[args.key] = args.value) }
-  function note_get(args,done)  { this.good(note[args.key]) }
+
+  function note_set(args,done)  { 
+    note_single[args.key] = args.value
+    this.good() 
+  }
+
+  function note_get(args,done)  { 
+    this.good({ value: note_single[args.key] }) 
+  }
+
+
   function note_list(args,done) { 
-    if( _.isArray(note[args.key]) ) {
-      this.good(note[args.key]) 
-    }
-    else this.good([])
+    this.good( note_list[args.key] || [] ) 
   }
 
   function note_push(args,done) {
-    if( !_.isArray(note[args.key]) ) {
-      note[args.key] = []
-    }
-    note[args.key].push(args.value)
-    this.good( args.value )
+    note_list[args.key] = note_list[args.key] || []
+    note_list[args.key].push(args.value)
+    this.good()
   }
 
   function note_pop(args,done) {
-    if( _.isArray(note[args.key]) ) {
-      this.good( note[args.key].pop() )
-    }
-    else this.good()
+    this.good({ value: note_list[args.key].pop() })
   }
-
-
 
 
 

@@ -25,6 +25,66 @@ describe('seneca.basic', function() {
       fin()
     })
   })
+
+  it('note',function(fin){
+    seneca
+      .start(fin)
+
+      .wait('role:basic,note:true,cmd:set,key:k0,value:v0')
+      .wait('role:basic,note:true,cmd:get,key:k0')
+      .step(function(out){
+        assert.equal('v0',out.value)
+        return true;
+      })
+
+      .wait('role:basic,note:true,cmd:set,key:k0,value:v1')
+      .wait('role:basic,note:true,cmd:get,key:k0')
+      .step(function(out){
+        assert.equal('v1',out.value)
+        return true;
+      })
+
+      .wait('role:basic,note:true,cmd:push,key:k0,value:i0')
+      .wait('role:basic,note:true,cmd:list,key:k0')
+      .step(function(out){
+        assert.deepEqual(['i0'],out)
+        return true;
+      })
+
+      .wait('role:basic,note:true,cmd:push,key:k0,value:i1')
+      .wait('role:basic,note:true,cmd:list,key:k0')
+      .step(function(out){
+        assert.deepEqual(['i0','i1'],out)
+        return true;
+      })
+
+      .wait('role:basic,note:true,cmd:pop,key:k0')
+      .step(function(out){
+        assert.equal('i1',out.value)
+        return true;
+      })
+
+      .wait('role:basic,note:true,cmd:pop,key:k0')
+      .step(function(out){
+        assert.equal('i0',out.value)
+        return true;
+      })
+
+      .wait('role:basic,note:true,cmd:list,key:k0')
+      .step(function(out){
+        assert.deepEqual([],out)
+        return true;
+      })
+
+    // lists and singles are separate namespaces 
+      .wait('role:basic,note:true,cmd:get,key:k0')
+      .step(function(out){
+        assert.equal('v1',out.value)
+        return true;
+      })
+
+      .end()
+  })
 })
 
 
