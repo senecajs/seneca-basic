@@ -1,5 +1,7 @@
 # seneca-basic - a [Seneca](http://senecajs.org) plugin
 
+[![Join the chat at https://gitter.im/rjrodger/seneca-basic](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/rjrodger/seneca-basic?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ### Seneca basic utility plugin. 
 
 This plugin is included with the main seneca module and provides a
