@@ -13,7 +13,7 @@ have any questions! :) [@rjrodger](http://twitter.com/rjrodger)
 
 Current Version: 0.3.0
 
-Tested on: Seneca 0.6.2
+Tested on: [Seneca](/rjrodger/seneca) 0.6.2
 
 [![Build Status](https://travis-ci.org/rjrodger/seneca-basic.png?branch=master)](https://travis-ci.org/rjrodger/seneca-basic) 
 
