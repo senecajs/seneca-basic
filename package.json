@@ -1,6 +1,6 @@
 {
   "name": "seneca-basic",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Seneca utility plugin.",
   "main": "basic.js",
   "scripts": {
