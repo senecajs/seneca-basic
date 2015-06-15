@@ -15,7 +15,7 @@ Current Version: 0.3.0
 
 Tested on: Seneca 0.6.2
 
-[![Build Status](https://travis-ci.org/rjrodger/seneca-basic.png?branch=master)](https://travis-ci.org/rjrodger/seneca-basic) (node versions: 0.10,0.11,0.12,iojs)
+[![Build Status](https://travis-ci.org/rjrodger/seneca-basic.png?branch=master)](https://travis-ci.org/rjrodger/seneca-basic) `0.10, 0.11, 0.12, iojs`
 
 [Annotated Source Code](http://rjrodger.github.io/seneca-basic/doc/basic.html).
 
