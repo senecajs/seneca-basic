@@ -8,21 +8,19 @@ small set of basic utility action patterns.
 
 ### Support
 
-If you're using this module, feel free to contact me on twitter if you
-have any questions! :) [@rjrodger](http://twitter.com/rjrodger)
-
 Current Version: 0.3.0
 
-Tested on: [Seneca](/rjrodger/seneca) 0.6.2
+Tested on: [Seneca](//github.com/rjrodger/seneca) 0.6.2
 
-[![Build Status](https://travis-ci.org/rjrodger/seneca-basic.png?branch=master)](https://travis-ci.org/rjrodger/seneca-basic) 
+[![Build Status](https://travis-ci.org/rjrodger/seneca-basic.png?branch=master)](https://travis-ci.org/rjrodger/seneca-basic)
 
-Built and tested against versions: `0.10, 0.11, 0.12, iojs`
+[Annotated Source](http://rjrodger.github.io/seneca-basic/doc/basic.html)
 
-[Annotated Source Code](http://rjrodger.github.io/seneca-basic/doc/basic.html).
+If you're using this module, and need help, you can:
 
-[![Gitter chat](https://badges.gitter.im/rjrodger/seneca-basic.png)](https://gitter.im/rjrodger/seneca-basic)
-
+   * Post a [github issue](//github.com/rjrodger/seneca-basic/issues),
+   * Tweet to [@senecajs](http://twitter.com/senecajs),
+   * Ask on the [![Gitter chat](https://badges.gitter.im/rjrodger/seneca-basic.png)](https://gitter.im/rjrodger/seneca-basic).
 
 
 ## Action Patterns
