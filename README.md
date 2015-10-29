@@ -118,7 +118,7 @@ _Response:_
 
 ## Releases
     
-    * 0.3.0: 2015-06-15: Normalized _note_ patterns. Prep for Seneca 0.6.2.
+- 0.3.0: 2015-06-15: Normalized _note_ patterns. Prep for Seneca 0.6.2.
 
 ## Contributing
 The [Senecajs org][] encourage open participation. If you feel you can help in any way, be it with
