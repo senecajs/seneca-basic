@@ -2,8 +2,8 @@
 > A [Seneca.js][] data storage plugin
 
 # seneca-basic 
-[![Build Status](https://travis-ci.org/rjrodger/seneca-basic.png?branch=master)](https://travis-ci.org/rjrodger/seneca-basic)
-[![Gitter chat](https://badges.gitter.im/rjrodger/seneca-basic.png)](https://gitter.im/rjrodger/seneca-basic)
+[![Build Status][travis-badge]][travis-url]
+[![Gitter chat][gitter-badge]][gitter-url]
 
 [![js-standard-style][standard-badge]][standard-style]
 
@@ -28,7 +28,7 @@ The annotated source can be found locally at [./doc/seneca-basic.html]().
 
 ## Install
 
-To install, simply use npm. Remember you will need to install [Senenca.js] if you haven't already.
+To install, simply use npm. Remember you will need to install [Seneca.js] if you haven't already.
 
 ```
 npm install seneca
@@ -136,6 +136,3 @@ Copyright Richard Rodger and other contributors 2015, Licensed under [MIT][].
 [senecajs.org]: http://senecajs.org/
 [github issue]: https://github.com/rjrodger/seneca-level-store/issues
 [@senecajs]: http://twitter.com/senecajs
-
-
-
