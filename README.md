@@ -22,13 +22,13 @@ If you're using this module, and need help, you can:
 
 seneca-basic's source can be read in an annotated fashion by,
 - running `npm run annotate`
-- viewing [online](http://rjrodger.github.io/seneca-basic/doc/basic.html).
+- viewing [online](http://rjrodger.github.io/seneca-basic/doc/basic.html)
 
 The annotated source can be found locally at [./doc/seneca-basic.html]().
 
 ## Install
 
-To install, simply use npm. Remember you will need to install [Senenca.js][] if you haven't already.
+To install, simply use npm. Remember you will need to install [Senenca.js] if you haven't already.
 
 ```
 npm install seneca
@@ -37,7 +37,11 @@ npm install seneca-basic
 
 ## Test  
 
-`npm run test`
+To run tests, simply use npm:
+
+```sh
+npm run test
+```
 
 ## Action Patterns
 
@@ -119,7 +123,7 @@ documentation, examples, extra testing, or new features please get in touch.
 ## License
 Copyright Richard Rodger and other contributors 2015, Licensed under [MIT][].
 
-[travis-badge]: https://travis-ci.org/senecajs/seneca-basic.svg
+[travis-badge]: https://travis-ci.org/senecajs/seneca-basic.svg?branch=master
 [travis-url]: https://travis-ci.org/senecajs/seneca-basic
 [gitter-badge]: https://badges.gitter.im/Join%20Chat.svg
 [gitter-url]: https://gitter.im/senecajs/seneca
