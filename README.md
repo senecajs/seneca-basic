@@ -1,5 +1,5 @@
 ![Seneca](http://senecajs.org/files/assets/seneca-logo.png)
-> A [Seneca.js][] data storage plugin
+> A [Seneca.js][] utility plugin
 
 # seneca-basic 
 [![Build Status][travis-badge]][travis-url]
@@ -115,6 +115,10 @@ _Response:_
 
    * `value`: key value, if list was non-empty
 
+
+## Releases
+    
+    * 0.3.0: 2015-06-15: Normalized _note_ patterns. Prep for Seneca 0.6.2.
 
 ## Contributing
 The [Senecajs org][] encourage open participation. If you feel you can help in any way, be it with
