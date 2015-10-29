@@ -5,7 +5,8 @@
   "main": "basic.js",
   "scripts": {
     "test": "./test.sh",
-    "build": "./build.sh"
+    "build": "./build.sh",
+    "annotate": "docco basic.js -o doc"
   },
   "repository": {
     "type": "git",

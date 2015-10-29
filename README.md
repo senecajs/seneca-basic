@@ -1,27 +1,43 @@
-# seneca-basic - a [Seneca](http://senecajs.org) plugin
+![Seneca](http://senecajs.org/files/assets/seneca-logo.png)
+> A [Seneca.js][] data storage plugin
 
-### Seneca basic utility plugin. 
+# seneca-basic 
+[![Build Status](https://travis-ci.org/rjrodger/seneca-basic.png?branch=master)](https://travis-ci.org/rjrodger/seneca-basic)
+[![Gitter chat](https://badges.gitter.im/rjrodger/seneca-basic.png)](https://gitter.im/rjrodger/seneca-basic)
+
+[![js-standard-style][standard-badge]][standard-style]
 
 This plugin is included with the main seneca module and provides a
 small set of basic utility action patterns.
 
-
-### Support
-
-Current Version: 0.3.0
-
-Tested on: [Seneca](//github.com/rjrodger/seneca) 0.6.2
-
-[![Build Status](https://travis-ci.org/rjrodger/seneca-basic.png?branch=master)](https://travis-ci.org/rjrodger/seneca-basic)
-
-[Annotated Source](http://rjrodger.github.io/seneca-basic/doc/basic.html)
+- __Version:__ 0.3.0
+- __Tested on:__ [Seneca](//github.com/rjrodger/seneca) 0.7.2
+- __Node:__ 0.10, 0.12, 4
 
 If you're using this module, and need help, you can:
 
-   * Post a [github issue](//github.com/rjrodger/seneca-basic/issues),
-   * Tweet to [@senecajs](http://twitter.com/senecajs),
-   * Ask on the [![Gitter chat](https://badges.gitter.im/rjrodger/seneca-basic.png)](https://gitter.im/rjrodger/seneca-basic).
+- Post a [github issue](//github.com/rjrodger/seneca-basic/issues)
+- Tweet to [@senecajs](http://twitter.com/senecajs)
+- Ask on the [Gitter][gitter-url]
 
+seneca-basic's source can be read in an annotated fashion by,
+- running `npm run annotate`
+- viewing [online](http://rjrodger.github.io/seneca-basic/doc/basic.html).
+
+The annotated source can be found locally at [./doc/seneca-basic.html]().
+
+## Install
+
+To install, simply use npm. Remember you will need to install [Senenca.js][] if you haven't already.
+
+```
+npm install seneca
+npm install seneca-basic
+```
+
+## Test  
+
+`npm run test`
 
 ## Action Patterns
 
@@ -96,12 +112,26 @@ _Response:_
    * `value`: key value, if list was non-empty
 
 
-## Releases
+## Contributing
+The [Senecajs org][] encourage open participation. If you feel you can help in any way, be it with
+documentation, examples, extra testing, or new features please get in touch.
 
-   * 0.3.0: 2015-06-15: Normalized _note_ patterns. Prep for Seneca 0.6.2.
+## License
+Copyright Richard Rodger and other contributors 2015, Licensed under [MIT][].
 
+[travis-badge]: https://travis-ci.org/senecajs/seneca-basic.svg
+[travis-url]: https://travis-ci.org/senecajs/seneca-basic
+[gitter-badge]: https://badges.gitter.im/Join%20Chat.svg
+[gitter-url]: https://gitter.im/senecajs/seneca
+[standard-badge]: https://raw.githubusercontent.com/feross/standard/master/badge.png
+[standard-style]: https://github.com/feross/standard
 
-
+[MIT]: ./LICENSE
+[Senecajs org]: https://github.com/senecajs/
+[Seneca.js]: https://www.npmjs.com/package/seneca
+[senecajs.org]: http://senecajs.org/
+[github issue]: https://github.com/rjrodger/seneca-level-store/issues
+[@senecajs]: http://twitter.com/senecajs
 
 
 
