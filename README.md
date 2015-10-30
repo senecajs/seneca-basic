@@ -11,7 +11,7 @@ This plugin is included with the main seneca module and provides a
 small set of basic utility action patterns.
 
 - __Version:__ 0.3.0
-- __Tested on:__ [Seneca](//github.com/rjrodger/seneca) 0.7.2
+- __Tested on:__ [Seneca](//github.com/rjrodger/seneca) 0.7.0
 - __Node:__ 0.10, 0.12, 4
 
 If you're using this module, and need help, you can:
@@ -28,11 +28,29 @@ The annotated source can be found locally at [./doc/seneca-basic.html]().
 
 ## Install
 
-To install, simply use npm. Remember you will need to install [Seneca.js] if you haven't already.
+This plugin module is included in the main Seneca module.
 
-```
+```sh
 npm install seneca
+```
+
+### Explicit install
+To explicitly install separately,
+
+```sh
 npm install seneca-basic
+```
+
+And in your code:
+
+```js
+var seneca = require('seneca')({
+  default_plugins: {
+    'basic': false
+  }
+})
+
+seneca.use(require('seneca-basic'))
 ```
 
 ## Test  
