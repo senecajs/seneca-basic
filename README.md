@@ -11,12 +11,13 @@ This plugin is included with the main seneca module and provides a
 small set of basic utility action patterns.
 
 - __Version:__ 0.3.0
-- __Tested on:__ [Seneca](//github.com/rjrodger/seneca) 0.7.0
+- __Tested on:__ [Seneca](https://github.com/senecajs/seneca) 0.7
 - __Node:__ 0.10, 0.12, 4
+- __License__ [MIT][]
 
 If you're using this module, and need help, you can:
 
-- Post a [github issue](//github.com/rjrodger/seneca-basic/issues)
+- Post a [github issue](https://github.com/senecajs/seneca-basic/issues)
 - Tweet to [@senecajs](http://twitter.com/senecajs)
 - Ask on the [Gitter][gitter-url]
 
@@ -156,5 +157,5 @@ Copyright Richard Rodger and other contributors 2015, Licensed under [MIT][].
 [Senecajs org]: https://github.com/senecajs/
 [Seneca.js]: https://www.npmjs.com/package/seneca
 [senecajs.org]: http://senecajs.org/
-[github issue]: https://github.com/rjrodger/seneca-level-store/issues
+[github issue]: https://github.com/senecajs/seneca-basic/issues
 [@senecajs]: http://twitter.com/senecajs
