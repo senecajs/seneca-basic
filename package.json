@@ -5,11 +5,12 @@
   "main": "basic.js",
   "scripts": {
     "test": "./test.sh",
-    "build": "./build.sh"
+    "build": "./build.sh",
+    "annotate": "docco basic.js -o doc"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rjrodger/seneca-basic"
+    "url": "https://github.com/senecajs/seneca-basic"
   },
   "keywords": [
     "seneca",
