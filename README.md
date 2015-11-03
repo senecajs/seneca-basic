@@ -64,7 +64,7 @@ npm run test
 
 ## Action Patterns
 
-### `role:basic, note:true, cmd:set`
+### role:basic, note:true, cmd:set
 
 Set a note value. Notes are a simple internal per-process
 communication mechanism for plugins to exchange data. In particular,
@@ -81,7 +81,7 @@ _Response:_
    * None.
 
 
-### `role:basic, note:true, cmd:get`
+### role:basic, note:true, cmd:get
 
 Get a note value.
 
@@ -94,7 +94,7 @@ _Response:_
    * `value`: key value, if defined
 
 
-### `role:basic, note:true, cmd:push`
+### role:basic, note:true, cmd:push
 
 Push a note value onto a list. The namespace for lists is separate
 from the namespace for single values. The list is created if it does not exist.
@@ -109,7 +109,7 @@ _Response:_
    * None.
 
 
-### `role:basic, note:true, cmd:list`
+### role:basic, note:true, cmd:list
 
 Get the full list of values for the key, in pushed order.
 
@@ -122,7 +122,7 @@ _Response:_
    * Array of values.
 
 
-### `role:basic, note:true, cmd:pop`
+### role:basic, note:true, cmd:pop
 
 Get the last value of a list, and remove it from the list.
 
