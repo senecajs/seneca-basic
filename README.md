@@ -5,8 +5,6 @@
 [![Build Status][travis-badge]][travis-url]
 [![Gitter chat][gitter-badge]][gitter-url]
 
-[![js-standard-style][standard-badge]][standard-style]
-
 This plugin is included with the main seneca module and provides a
 small set of basic utility action patterns.
 
@@ -150,8 +148,6 @@ Copyright Richard Rodger and other contributors 2015, Licensed under [MIT][].
 [travis-url]: https://travis-ci.org/senecajs/seneca-basic
 [gitter-badge]: https://badges.gitter.im/Join%20Chat.svg
 [gitter-url]: https://gitter.im/senecajs/seneca
-[standard-badge]: https://raw.githubusercontent.com/feross/standard/master/badge.png
-[standard-style]: https://github.com/feross/standard
 
 [MIT]: ./LICENSE
 [Senecajs org]: https://github.com/senecajs/
