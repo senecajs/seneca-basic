@@ -1,189 +1,162 @@
 /* Copyright (c) 2011-2015 Richard Rodger */
 /* jshint node:true, asi:true, eqnull:true */
-"use strict";
+'use strict'
 
-
-var fs   = require('fs')
+var fs = require('fs')
 var util = require('util')
 var path = require('path')
 
-var nid   = require('nid')
-var _     = require('lodash')
+var nid = require('nid')
+var _ = require('lodash')
 var async = require('async')
 
-
-function nil(){
-  _.each(arguments,function(arg){
-    if( _.isFunction(arg) ) {
+function nil () {
+  _.each(arguments, function (arg) {
+    if (_.isFunction(arg)) {
       return arg()
     }
   })
 }
 
-
-module.exports = function( options ) {
+module.exports = function (options) {
   /* jshint validthis:true */
 
   var name = 'basic'
   var seneca = this
 
-
   options = seneca.util.deepextend({
     limit: { parallel: 11 }
-  },options)
-
+  }, options)
 
   // Deprecation messages.
   var marked_remove = 'marked for removal in future'
-  var util_dep_msg  = 'role:util patterns are replaced by role:basic.'
-
+  var util_dep_msg = 'role:util patterns are replaced by role:basic.'
 
   // legacy cmds use role:'util'
 
-  seneca.add({role:name,cmd:'quickcode',   deprecate$:marked_remove}, cmd_quickcode)
-  seneca.add({role:'util',cmd:'quickcode', deprecate$:util_dep_msg},  cmd_quickcode)
-  
-  seneca.add({role:name,cmd:'generate_id'},cmd_generate_id)
-  seneca.add({role:'util',cmd:'generate_id'},cmd_generate_id)
+  seneca.add({role: name, cmd: 'quickcode', deprecate$: marked_remove}, cmd_quickcode)
+  seneca.add({role: 'util', cmd: 'quickcode', deprecate$: util_dep_msg}, cmd_quickcode)
 
+  seneca.add({role: name, cmd: 'generate_id'}, cmd_generate_id)
+  seneca.add({role: 'util', cmd: 'generate_id'}, cmd_generate_id)
 
   // TODO: this should be a utility function, not a pattern
   seneca.add({
-    role:   name,
-    cmd:    'ensure_entity',
-
-    pin:    {required$:true},
-
+    role: name,
+    cmd: 'ensure_entity',
+    pin: {required$: true},
     // TODO: accept entity spec here, e.g. strings like 'sys/user'
-    entmap: {object$:true,required$:true},
-
+    entmap: {object$: true, required$: true}
   }, ensure_entity)
 
-  seneca.add({role:'util', cmd:'ensure_entity' }, ensure_entity)
-
-
-  seneca.add({role:name,cmd:'define_sys_entity'},cmd_define_sys_entity)
-  seneca.add({role:'util',cmd:'define_sys_entity'},cmd_define_sys_entity)
-
+  seneca.add({role: 'util', cmd: 'ensure_entity'}, ensure_entity)
+  seneca.add({role: name, cmd: 'define_sys_entity'}, cmd_define_sys_entity)
+  seneca.add({role: 'util', cmd: 'define_sys_entity'}, cmd_define_sys_entity)
 
   // The note patterns let you pass information to plugins that are
   // loaded after the current plugin. See seneca-admin
 
-  seneca.add({role:name,note:true,cmd:'set'},  note_set)
-  seneca.add({role:name,note:true,cmd:'get'},  note_get)
-  seneca.add({role:name,note:true,cmd:'list'}, note_list)
-  seneca.add({role:name,note:true,cmd:'push'}, note_push)
-  seneca.add({role:name,note:true,cmd:'pop'},  note_pop)
+  seneca.add({role: name, note: true, cmd: 'set'}, note_set)
+  seneca.add({role: name, note: true, cmd: 'get'}, note_get)
+  seneca.add({role: name, note: true, cmd: 'list'}, note_list)
+  seneca.add({role: name, note: true, cmd: 'push'}, note_push)
+  seneca.add({role: name, note: true, cmd: 'pop'}, note_pop)
 
-  seneca.add({role:'util',note:true,cmd:'set',  deprecate$:util_dep_msg}, note_set)
-  seneca.add({role:'util',note:true,cmd:'get',  deprecate$:util_dep_msg}, note_get)
-  seneca.add({role:'util',note:true,cmd:'list', deprecate$:util_dep_msg}, note_list)
-  seneca.add({role:'util',note:true,cmd:'push', deprecate$:util_dep_msg}, note_push)
-  seneca.add({role:'util',note:true,cmd:'pop',  deprecate$:util_dep_msg}, note_pop)
-
-
+  seneca.add({role: 'util', note: true, cmd: 'set', deprecate$: util_dep_msg}, note_set)
+  seneca.add({role: 'util', note: true, cmd: 'get', deprecate$: util_dep_msg}, note_get)
+  seneca.add({role: 'util', note: true, cmd: 'list', deprecate$: util_dep_msg}, note_list)
+  seneca.add({role: 'util', note: true, cmd: 'push', deprecate$: util_dep_msg}, note_push)
+  seneca.add({role: 'util', note: true, cmd: 'pop', deprecate$: util_dep_msg}, note_pop)
 
   var note_single = {}
   var note_values = {}
 
-
-  function note_set(args,done)  { 
+  function note_set (args, done) {
     note_single[args.key] = args.value
-    this.good() 
+    this.good()
   }
 
-  function note_get(args,done)  { 
-    this.good({ value: note_single[args.key] }) 
+  function note_get (args, done) {
+    this.good({ value: note_single[args.key] })
   }
 
-
-  function note_list(args,done) { 
-    this.good( note_values[args.key] || [] ) 
+  function note_list (args, done) {
+    this.good(note_values[args.key] || [])
   }
 
-  function note_push(args,done) {
+  function note_push (args, done) {
     note_values[args.key] = note_values[args.key] || []
     note_values[args.key].push(args.value)
     this.good()
   }
 
-  function note_pop(args,done) {
+  function note_pop (args, done) {
     this.good({ value: note_values[args.key].pop() })
   }
 
-
-
-  function cmd_quickcode(args,done){
+  function cmd_quickcode (args, done) {
     args.len = args.length || args.len
-    var len      = args.len ? parseInt(args.len,10) : 8
+    var len = args.len ? parseInt(args.len, 10) : 8
     var alphabet = args.alphabet || '0123456789abcdefghijklmnopqrstuvwxyz'
-    var curses   = args.curses
-    
+    var curses = args.curses
+
     var nidopts = {}
-    if( len ) nidopts.length = len;
-    if( alphabet ) nidopts.alphabet = alphabet;
-    if( curses ) nidopts.curses = curses;
+    if (len) nidopts.length = len
+    if (alphabet) nidopts.alphabet = alphabet
+    if (curses) nidopts.curses = curses
 
     var actnid = nid(nidopts)
 
-    done(null,actnid())
+    done(null, actnid())
   }
-
 
   // cache nid funcs up to length 64
   var nids = []
-  
+
   // TODO: allow specials based on ent canon: name,base,zone props
-  function cmd_generate_id(args,done){
-    var actnid, length = args.length || 6
-    if( length < 65 ) {
-      actnid = nids[length] || (nids[length]=nid({length:length}))
-    }
-    else {
-      actnid = nid({length:length})
+  function cmd_generate_id (args, done) {
+    var actnid
+    var length = args.length || 6
+
+    if (length < 65) {
+      actnid = nids[length] || (nids[length] = nid({length: length}))
+    } else {
+      actnid = nid({length: length})
     }
 
-    done(null,actnid())
+    done(null, actnid())
   }
 
-
-
-
-  function ensure_entity(args,done){
+  function ensure_entity (args, done) {
     var entmap = args.entmap
 
-    seneca.wrap(args.pin,function(args,done){
+    seneca.wrap(args.pin, function (args, done) {
       var seneca = this
 
       seneca.util.recurse(
         _.keys(entmap),
-        function(entarg,next){
-
+        function (entarg, next) {
           // ent id
-          if( _.isString(args[entarg]) ) {
-            entmap[entarg].load$( args[entarg], function(err,ent){
-              if(err) return done(err)
-              args[entarg]=ent
-              return next(null,args)
+          if (_.isString(args[entarg])) {
+            entmap[entarg].load$(args[entarg], function (err, ent) {
+              if (err) return done(err)
+              args[entarg] = ent
+              return next(null, args)
             })
-          }
-
           // ent JSON
-          else if( _.isObject(args[entarg]) ) {
-            
-            // contains entity$ or $:{name,base,zone} 
-            if( args[entarg].entity$ || args[entarg].$ ) {
-              args[entarg] = entmap[entarg].make$(args[entarg]) 
-              return next(null,args)
+          } else if (_.isObject(args[entarg])) {
+            // contains entity$ or $:{name,base,zone}
+            if (args[entarg].entity$ || args[entarg].$) {
+              args[entarg] = entmap[entarg].make$(args[entarg])
+              return next(null, args)
             }
           }
 
-          else return next(null,args);
-
+          else return next(null, args)
         },
-        function(err,args) {
-          if( err ) return done(err);
-          return seneca.prior(args,done)
+        function (err, args) {
+          if (err) return done(err)
+          return seneca.prior(args, done)
         }
       )
     })
@@ -191,71 +164,62 @@ module.exports = function( options ) {
     done()
   }
 
-
-  
-  function cmd_define_sys_entity(args,done) {
+  function cmd_define_sys_entity (args, done) {
     var seneca = this
-    var list = args.list || [_.pick(args,['entity','zone','base','name','fields'])]
+    var list = args.list || [_.pick(args, ['entity', 'zone', 'base', 'name', 'fields'])]
     list = _.isArray(list) ? list : list.split(/\s*,\s*/)
 
-    var sys_entity = seneca.make$('sys','entity')
+    var sys_entity = seneca.make$('sys', 'entity')
 
-    function define(entry,next) {
-      if( _.isString(entry) ) {
+    function define (entry, next) {
+      if (_.isString(entry)) {
         entry = seneca.util.parsecanon(entry)
-      }
-      else if( _.isString(entry.entity) ) {
+      } else if (_.isString(entry.entity)) {
         var fields = entry.fields
         entry = seneca.util.parsecanon(entry.entity)
         entry.fields = fields
-      }
-      else if( _.isObject(entry) && entry.entity$ ) {
-        entry = entry.canon$({object:true})
+      } else if (_.isObject(entry) && entry.entity$) {
+        entry = entry.canon$({object: true})
       }
 
-      var entq = {zone:entry.zone,base:entry.base,name:entry.name}
-      sys_entity.load$(entq,function(err,entity){
-        if(err) return next(err);
+      var entq = { zone: entry.zone, base: entry.base, name: entry.name }
+
+      sys_entity.load$(entq, function (err, entity) {
+        if (err) return next(err)
 
         var save = false
 
-        if( null == entity ) {
+        if (entity == null) {
           entity = sys_entity.make$(entry)
           save = true
         }
-        
-        if( null == entity.fields ) {
+
+        if (entity.fields == null) {
           entity.fields = []
           save = true
         }
 
-        if( save ) {
-          entity.save$(function(err,ent){
-            return next(err,ent)
+        if (save) {
+          entity.save$(function (err, ent) {
+            return next(err, ent)
           })
         }
-        else return next(null,entity)
+        else return next(null, entity)
       })
     }
 
-    async.mapLimit( list || [], options.limit.parallel, define, done )
+    async.mapLimit(list || [], options.limit.parallel, define, done)
   }
 
-
-
   var utilfuncs = {
-    pathnorm: function( pathstr ) {
-      return path.normalize( (null==pathstr) ? '' : ''+pathstr ).replace(/\/+$/,'')
+    pathnorm: function (pathstr) {
+      return path.normalize((pathstr == null) ? '' : '' + pathstr).replace(/\/+$/, '')
     },
     deepextend: seneca.util.deepextend
   }
 
-
   return {
-    name:name,
-    export:utilfuncs
+    name: name,
+    export: utilfuncs
   }
-
 }
-
-
