@@ -14,4 +14,4 @@ fi
 if [ ! -d "./node_modules/seneca" ]; then
   npm install seneca@plugin
 fi
-./node_modules/.bin/mocha test/*.test.js
+./node_modules/.bin/lab -v test -L

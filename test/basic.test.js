@@ -7,6 +7,11 @@ var assert = require('assert')
 var _      = require('lodash')
 var util   = require('util')
 
+var Lab = require('lab');
+var lab = exports.lab = Lab.script();
+
+var describe = lab.describe;
+var it = lab.it;
 
 var seneca = require('seneca')({
   log: 'silent',
