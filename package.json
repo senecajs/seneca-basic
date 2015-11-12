@@ -21,7 +21,8 @@
   ],
   "author": "Richard Rodger (http://richardrodger.com)",
   "contributors": [
-    "Richard Rodger (http://richardrodger.com)"
+    "Richard Rodger (http://richardrodger.com)",
+    "Bogdan Rotund"
   ],
   "license": "MIT",
   "dependencies": {
