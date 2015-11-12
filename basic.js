@@ -2,21 +2,11 @@
 /* jshint node:true, asi:true, eqnull:true */
 'use strict'
 
-var fs = require('fs')
-var util = require('util')
 var path = require('path')
 
 var nid = require('nid')
 var _ = require('lodash')
 var async = require('async')
-
-function nil () {
-  _.each(arguments, function (arg) {
-    if (_.isFunction(arg)) {
-      return arg()
-    }
-  })
-}
 
 module.exports = function (options) {
   /* jshint validthis:true */

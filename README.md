@@ -67,7 +67,7 @@ npm run test
 Set a note value. Notes are a simple internal per-process
 communication mechanism for plugins to exchange data. In particular,
 plugins can set keyed values before the plugin that uses the data
-reads it. See [seneca-admin](/rjrodger/seneca-admin) for an example.
+reads it. See [seneca-admin][seneca-admin] for an example.
 
 _Parameters_
  
@@ -155,3 +155,4 @@ Copyright Richard Rodger and other contributors 2015, Licensed under [MIT][].
 [senecajs.org]: http://senecajs.org/
 [github issue]: https://github.com/senecajs/seneca-basic/issues
 [@senecajs]: http://twitter.com/senecajs
+[seneca-admin]: https://github.com/rjrodger/seneca-admin
