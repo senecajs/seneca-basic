@@ -6,8 +6,10 @@ var assert = require('assert')
 var _      = require('lodash')
 var util   = require('util')
 
-var Lab = require('lab');
-var lab = exports.lab = Lab.script();
+var Lab = require('lab')
+var lab = exports.lab = Lab.script()
+
+require('events').EventEmitter.defaultMaxListeners = Infinity;
 
 var seneca; 
 
@@ -27,7 +29,7 @@ lab.experiment('seneca.basic', function() {
     seneca = createSeneca()       
     done();
   });
-            
+       
   lab.test('note get', function (done) {
     seneca
       .start()
@@ -54,6 +56,19 @@ lab.experiment('seneca.basic', function() {
       })
       .end(done)
   })
+  
+  lab.test('note list empty', function (done) {
+    seneca
+      .start()
+      .wait('role:basic,note:true,cmd:list,key:name')
+      .step(function (value) {
+        assert.ok(value)
+        assert.deepEqual(value, [])
+        return true
+      })
+      .end(done)
+  })
+  
   
   lab.test('note pop', function (done) {
     seneca
@@ -101,68 +116,27 @@ lab.experiment('seneca.basic', function() {
       .end(done)
   })
 
-  lab.test('note', function(fin) {
+  lab.test('note push', function (done) {
     seneca
-      .start(fin)
-
-      .wait('role:basic,note:true,cmd:set,key:k0,value:v0')
-      .wait('role:basic,note:true,cmd:get,key:k0')
-      .step(function(out){
-        assert.equal('v0',out.value)
-        return true;
-      })
-
-      .wait('role:basic,note:true,cmd:set,key:k0,value:v1')
-      .wait('role:basic,note:true,cmd:get,key:k0')
-      .step(function(out){
-        assert.equal('v1',out.value)
-        return true;
-      })
-
+      .start()
       .wait('role:basic,note:true,cmd:push,key:k0,value:i0')
       .wait('role:basic,note:true,cmd:list,key:k0')
-      .step(function(out){
-        assert.deepEqual(['i0'],out)
-        return true;
+      .step(function (out) {
+        assert.deepEqual(['i0'], out)
+        return true
       })
-
+      
       .wait('role:basic,note:true,cmd:push,key:k0,value:i1')
       .wait('role:basic,note:true,cmd:list,key:k0')
-      .step(function(out){
-        assert.deepEqual(['i0','i1'],out)
-        return true;
+      .step(function (out) {
+        assert.deepEqual(['i0', 'i1'], out)
+        return true
       })
-
-      .wait('role:basic,note:true,cmd:pop,key:k0')
-      .step(function(out){
-        assert.equal('i1',out.value)
-        return true;
-      })
-
-      .wait('role:basic,note:true,cmd:pop,key:k0')
-      .step(function(out){
-        assert.equal('i0',out.value)
-        return true;
-      })
-
-      .wait('role:basic,note:true,cmd:list,key:k0')
-      .step(function(out){
-        assert.deepEqual([],out)
-        return true;
-      })
-
-    // lists and singles are separate namespaces 
-      .wait('role:basic,note:true,cmd:get,key:k0')
-      .step(function(out){
-        assert.equal('v1',out.value)
-        return true;
-      })
-
-      .end()
+      .end(done)
   })
   
-  lab.test('quickcode', function(done) {
-    seneca.act({role:'basic', cmd:'quickcode'}, function(err, code) {
+  lab.test('quickcode basic', function (done) {
+    seneca.act({role:'basic', cmd:'quickcode'}, function (err, code) {
       assert.ifError(err)
       assert.ok(code)
       assert.equal(code.length, 8)
@@ -171,17 +145,37 @@ lab.experiment('seneca.basic', function() {
     })
   })
   
-  lab.test('quickcode', function(done) {
-    seneca.act({role:'util', cmd:'quickcode'}, function(err, code) {
-      assert.ok(code)
+  lab.test('quickcode basic with length', function (done) {
+    seneca.act({role:'basic', cmd:'quickcode', length: 12}, function (err, code) {
       assert.ifError(err)
-      assert.equal(code.length, 8)
+      assert.ok(code)
+      assert.equal(code.length, 12)
       assert.ok(/[ABCDEFGHIJKLMNOPQRSTUVWXYZ]/.exec(code) == null)
+      done()
+    })    
+  })
+  
+  lab.test('quickcode basic with alphabet', function (done) {
+    seneca.act({role:'basic', cmd:'quickcode', alphabet: 'abcdef'}, function (err, code) {
+      assert.ifError(err)
+      assert.ok(code)
+      assert.equal(code.length, 8)
+      assert.ok(/[ABCDEF]/.exec(code) == null)
       done()
     })
   })
   
-  lab.test('generate_id', function (done) {
+  lab.test('quickcode basic with curses', function (done) {
+    seneca.act({role:'basic', cmd:'quickcode', curses: 'damn'}, function (err, code) {
+      assert.ifError(err)
+      assert.ok(code)
+      assert.equal(code.length, 8)
+      assert.ok(/[ABCDEF]/.exec(code) == null)
+      done()
+    })
+  })
+  
+  lab.test('generate_id basic', function (done) {
     seneca.act({ role: 'basic', cmd: 'generate_id' }, function (err, id) {
       assert.ifError(err)
       assert.ok(id)
@@ -190,13 +184,61 @@ lab.experiment('seneca.basic', function() {
     })
   })
   
-  lab.test('generate_id', function (done) {
-    seneca.act({ role: 'util', cmd: 'generate_id' }, function (err, id) {
+  lab.test('define_sys_entity', function (done) {
+    seneca.act({ role: 'basic', cmd: 'define_sys_entity' }, function (err, resp) {
       assert.ifError(err)
-      assert.ok(id)
-      assert.equal(id.length, 6)
+      assert.ok(resp)
       done()
     })
+  })
+  
+  lab.test('define_sys_entity with list', function (done) {
+    seneca.act({ role: 'basic', cmd: 'define_sys_entity', list: 'entity' }, function (err, resp) {
+      assert.ifError(err)
+      assert.ok(resp)
+      done()
+    })
+  })
+  
+  lab.test('define_sys_entity with list and string entity', function (done) {
+    seneca.act({ role: 'basic', cmd: 'define_sys_entity', list: [{entity: 'ent'}] }, function (err, resp) {
+      assert.ifError(err)
+      assert.ok(resp)
+      done()
+    })
+  })
+  
+  lab.test('define_sys_entity with list and non object entity', function (done) {
+    seneca.act({ role: 'basic', cmd: 'define_sys_entity', list: [1] }, function (err, resp) {
+      assert.ifError(err)
+      assert.ok(resp)
+      done()
+    })
+  })
+  
+  lab.test('define_sys_entity with list and a seneca entity', function (done) {
+    var product = seneca.make('product')
+    seneca.act({ role: 'basic', cmd: 'define_sys_entity', list: [product] }, function (err, resp) {
+      assert.ifError(err)
+      assert.ok(resp)
+      done()
+    })
+  })
+  
+  lab.test('utilfuncs pathnorm empty path', function (done) {
+    var basic = createSeneca().export('basic')    
+    var path = basic.pathnorm('')
+    assert.ok(path)
+    assert.equal(path, '.')
+    done()
+  })
+  
+  lab.test('utilfuncs pathnorm null path', function (done) {
+    var basic = createSeneca().export('basic')    
+    var path = basic.pathnorm(null)
+    assert.ok(path)
+    assert.equal(path, '.')
+    done()
   })
 })
 
