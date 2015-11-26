@@ -3,10 +3,11 @@
 
 var path = require('path')
 
-var nid = require('nid')
 var _ = require('lodash')
 var async = require('async')
+
 var Note = require('./lib/note')
+var uniqueid = require('./lib/uniqueid')
 
 module.exports = function (options) {
   var name = 'basic'
@@ -24,11 +25,11 @@ module.exports = function (options) {
 
   // legacy cmds use role:'util'
 
-  seneca.add({role: name, cmd: 'quickcode', deprecate$: marked_remove}, cmd_quickcode)
-  seneca.add({role: 'util', cmd: 'quickcode', deprecate$: util_dep_msg}, cmd_quickcode)
+  seneca.add({role: name, cmd: 'quickcode', deprecate$: marked_remove}, uniqueid.quickcode)
+  seneca.add({role: 'util', cmd: 'quickcode', deprecate$: util_dep_msg}, uniqueid.quickcode)
 
-  seneca.add({role: name, cmd: 'generate_id'}, cmd_generate_id)
-  seneca.add({role: 'util', cmd: 'generate_id'}, cmd_generate_id)
+  seneca.add({role: name, cmd: 'generate_id'}, uniqueid.generate_id)
+  seneca.add({role: 'util', cmd: 'generate_id'}, uniqueid.generate_id)
 
   // TODO: this should be a utility function, not a pattern
   seneca.add({
@@ -57,39 +58,6 @@ module.exports = function (options) {
   seneca.add({role: 'util', note: true, cmd: 'list', deprecate$: util_dep_msg}, note.list)
   seneca.add({role: 'util', note: true, cmd: 'push', deprecate$: util_dep_msg}, note.push)
   seneca.add({role: 'util', note: true, cmd: 'pop', deprecate$: util_dep_msg}, note.pop)
-
-  function cmd_quickcode (args, done) {
-    args.len = args.length || args.len
-    var len = args.len ? parseInt(args.len, 10) : 8
-    var alphabet = args.alphabet || '0123456789abcdefghijklmnopqrstuvwxyz'
-    var curses = args.curses
-
-    var nidopts = {}
-    if (len) nidopts.length = len
-    if (alphabet) nidopts.alphabet = alphabet
-    if (curses) nidopts.curses = curses
-
-    var actnid = nid(nidopts)
-
-    done(null, actnid())
-  }
-
-  // cache nid funcs up to length 64
-  var nids = []
-
-  // TODO: allow specials based on ent canon: name,base,zone props
-  function cmd_generate_id (args, done) {
-    var actnid
-    var length = args.length || 6
-
-    if (length < 65) {
-      actnid = nids[length] || (nids[length] = nid({length: length}))
-    } else {
-      actnid = nid({length: length})
-    }
-
-    done(null, actnid())
-  }
 
   function ensure_entity (args, done) {
     var entmap = args.entmap
