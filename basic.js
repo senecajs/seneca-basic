@@ -1,5 +1,4 @@
 /* Copyright (c) 2011-2015 Richard Rodger */
-/* jshint node:true, asi:true, eqnull:true */
 'use strict'
 
 var path = require('path')
@@ -7,18 +6,19 @@ var path = require('path')
 var nid = require('nid')
 var _ = require('lodash')
 var async = require('async')
+var Note = require('./lib/note')
 
 module.exports = function (options) {
-  /* jshint validthis:true */
-
   var name = 'basic'
   var seneca = this
+
+  var note = Note()
 
   options = seneca.util.deepextend({
     limit: { parallel: 11 }
   }, options)
 
-  // Deprecation messages.
+  // deprecation messages
   var marked_remove = 'marked for removal in future'
   var util_dep_msg = 'role:util patterns are replaced by role:basic.'
 
@@ -46,43 +46,17 @@ module.exports = function (options) {
   // The note patterns let you pass information to plugins that are
   // loaded after the current plugin. See seneca-admin
 
-  seneca.add({role: name, note: true, cmd: 'set'}, note_set)
-  seneca.add({role: name, note: true, cmd: 'get'}, note_get)
-  seneca.add({role: name, note: true, cmd: 'list'}, note_list)
-  seneca.add({role: name, note: true, cmd: 'push'}, note_push)
-  seneca.add({role: name, note: true, cmd: 'pop'}, note_pop)
+  seneca.add({role: name, note: true, cmd: 'set'}, note.set)
+  seneca.add({role: name, note: true, cmd: 'get'}, note.get)
+  seneca.add({role: name, note: true, cmd: 'list'}, note.list)
+  seneca.add({role: name, note: true, cmd: 'push'}, note.push)
+  seneca.add({role: name, note: true, cmd: 'pop'}, note.pop)
 
-  seneca.add({role: 'util', note: true, cmd: 'set', deprecate$: util_dep_msg}, note_set)
-  seneca.add({role: 'util', note: true, cmd: 'get', deprecate$: util_dep_msg}, note_get)
-  seneca.add({role: 'util', note: true, cmd: 'list', deprecate$: util_dep_msg}, note_list)
-  seneca.add({role: 'util', note: true, cmd: 'push', deprecate$: util_dep_msg}, note_push)
-  seneca.add({role: 'util', note: true, cmd: 'pop', deprecate$: util_dep_msg}, note_pop)
-
-  var note_single = {}
-  var note_values = {}
-
-  function note_set (args, done) {
-    note_single[args.key] = args.value
-    this.good()
-  }
-
-  function note_get (args, done) {
-    this.good({ value: note_single[args.key] })
-  }
-
-  function note_list (args, done) {
-    this.good(note_values[args.key] || [])
-  }
-
-  function note_push (args, done) {
-    note_values[args.key] = note_values[args.key] || []
-    note_values[args.key].push(args.value)
-    this.good()
-  }
-
-  function note_pop (args, done) {
-    this.good({ value: note_values[args.key].pop() })
-  }
+  seneca.add({role: 'util', note: true, cmd: 'set', deprecate$: util_dep_msg}, note.set)
+  seneca.add({role: 'util', note: true, cmd: 'get', deprecate$: util_dep_msg}, note.get)
+  seneca.add({role: 'util', note: true, cmd: 'list', deprecate$: util_dep_msg}, note.list)
+  seneca.add({role: 'util', note: true, cmd: 'push', deprecate$: util_dep_msg}, note.push)
+  seneca.add({role: 'util', note: true, cmd: 'pop', deprecate$: util_dep_msg}, note.pop)
 
   function cmd_quickcode (args, done) {
     args.len = args.length || args.len
