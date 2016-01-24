@@ -50,7 +50,7 @@ function registerUniqueId (seneca) {
   seneca.add({role: 'util', cmd: 'generate_id'}, uniqueid.generate_id)
 }
 
-module.exports = function (options) {
+module.exports = function basic (options) {
   var seneca = this
 
   options = seneca.util.deepextend({ limit: { parallel: 11 } }, options)
@@ -70,7 +70,6 @@ module.exports = function (options) {
   }
 
   return {
-    name: common.plugin.name,
     export: utilfuncs
   }
 }
