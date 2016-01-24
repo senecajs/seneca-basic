@@ -1,6 +1,6 @@
 {
   "name": "seneca-basic",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Seneca utility plugin.",
   "main": "basic.js",
   "scripts": {
@@ -41,6 +41,10 @@
   "files": [
     "LICENSE.txt",
     "README.md",
-    "basic.js"
+    "basic.js",
+    "lib/common.js",
+    "lib/entity.js",
+    "lib/note.js",
+    "lib/uniqueid.js"
   ]
 }
