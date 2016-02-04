@@ -7,6 +7,7 @@ var Entity = require('./lib/entity')
 var Uniqueid = require('./lib/uniqueid')
 var Common = require('./lib/common')
 
+
 function registerNote (seneca, note) {
   // The note patterns let you pass information to plugins that are
   // loaded after the current plugin. See seneca-admin
@@ -24,6 +25,7 @@ function registerNote (seneca, note) {
   seneca.add({role: 'util', note: true, cmd: 'pop', deprecate$: Common.messages.UTIL_DEPRECATED}, note.pop)
 }
 
+
 function registerEntity (seneca, entity) {
   // TODO: this should be a utility function, not a pattern
   seneca.add({
@@ -40,6 +42,7 @@ function registerEntity (seneca, entity) {
   seneca.add({role: 'util', cmd: 'define_sys_entity'}, entity.defineSys)
 }
 
+
 function registerUniqueId (seneca) {
   seneca.add({role: Common.plugin.name, cmd: 'quickcode', deprecate$: Common.messages.MARKED_FOR_REMOVAL}, Uniqueid.quickcode)
   seneca.add({role: Common.plugin.name, cmd: 'generate_id'}, Uniqueid.generate_id)
@@ -48,6 +51,14 @@ function registerUniqueId (seneca) {
   seneca.add({role: 'util', cmd: 'quickcode', deprecate$: Common.messages.UTIL_DEPRECATED}, Uniqueid.quickcode)
   seneca.add({role: 'util', cmd: 'generate_id'}, Uniqueid.generate_id)
 }
+
+
+var utilfuncs = {
+  pathnorm: function (pathstr) {
+    return Path.normalize((pathstr == null) ? '' : '' + pathstr).replace(/\/+$/, '')
+  }
+}
+
 
 module.exports = function basic (options) {
   var seneca = this
@@ -61,14 +72,21 @@ module.exports = function basic (options) {
   registerEntity(seneca, entity)
   registerNote(seneca, note)
 
-  var utilfuncs = {
-    pathnorm: function (pathstr) {
-      return Path.normalize((pathstr == null) ? '' : '' + pathstr).replace(/\/+$/, '')
-    },
-    deepextend: seneca.util.deepextend
-  }
-
+  utilfuncs.deepextend = seneca.util.deepextend
   return {
     export: utilfuncs
   }
+}
+
+
+module.exports.preload = function () {
+  var seneca = this
+  utilfuncs.deepextend = seneca.util.deepextend
+
+  var meta = {
+    name: Common.plugin.name,
+    export: utilfuncs
+  }
+
+  return meta
 }
