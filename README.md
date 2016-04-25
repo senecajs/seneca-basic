@@ -9,7 +9,7 @@ This plugin is included with the main seneca module and provides a
 small set of basic utility action patterns.
 
 - __Version:__ 0.3.0
-- __Tested on:__ [Seneca](https://github.com/senecajs/seneca) 1.4.0, 2.0.x
+- __Tested on:__ [Seneca](https://github.com/senecajs/seneca) 1.4.0
 - __Node:__ 0.10, 0.12, 4
 - __License__ [MIT][]
 
