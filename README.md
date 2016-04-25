@@ -1,7 +1,7 @@
 ![Seneca](http://senecajs.org/files/assets/seneca-logo.png)
 > A [Seneca.js][] utility plugin
 
-# seneca-basic 
+# seneca-basic
 [![Build Status][travis-badge]][travis-url]
 [![Gitter chat][gitter-badge]][gitter-url]
 
@@ -9,7 +9,7 @@ This plugin is included with the main seneca module and provides a
 small set of basic utility action patterns.
 
 - __Version:__ 0.3.0
-- __Tested on:__ [Seneca](https://github.com/senecajs/seneca) 0.7
+- __Tested on:__ [Seneca](https://github.com/senecajs/seneca) 1.4.0, 2.0.x
 - __Node:__ 0.10, 0.12, 4
 - __License__ [MIT][]
 
@@ -70,7 +70,7 @@ plugins can set keyed values before the plugin that uses the data
 reads it. See [seneca-admin][seneca-admin] for an example.
 
 _Parameters_
- 
+
    * `key`:   string; key name
    * `value`: key value
 
@@ -84,7 +84,7 @@ _Response:_
 Get a note value.
 
 _Parameters_
- 
+
    * `key`:   string; key name
 
 _Response:_
@@ -98,7 +98,7 @@ Push a note value onto a list. The namespace for lists is separate
 from the namespace for single values. The list is created if it does not exist.
 
 _Parameters_
- 
+
    * `key`: string; key name
    * `value`: value to append to list.
 
@@ -112,7 +112,7 @@ _Response:_
 Get the full list of values for the key, in pushed order.
 
 _Parameters_
- 
+
    * `key`: string; key name
 
 _Response:_
@@ -125,7 +125,7 @@ _Response:_
 Get the last value of a list, and remove it from the list.
 
 _Parameters_
- 
+
    * `key`: string; key name
 
 _Response:_
@@ -134,7 +134,7 @@ _Response:_
 
 
 ## Releases
-    
+
 - 0.3.0: 2015-06-15: Normalized _note_ patterns. Prep for Seneca 0.6.2.
 
 ## Contributing
