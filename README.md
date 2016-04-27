@@ -2,16 +2,15 @@
 > A [Seneca.js][] utility plugin
 
 # seneca-basic
+[![npm version][npm-badge]][npm-url]
+[![Dependency Status][david-badge]][david-url]
 [![Build Status][travis-badge]][travis-url]
 [![Gitter chat][gitter-badge]][gitter-url]
 
 This plugin is included with the main seneca module and provides a
 small set of basic utility action patterns.
 
-- __Version:__ 0.3.0
-- __Tested on:__ [Seneca](https://github.com/senecajs/seneca) 1.4.0
-- __Node:__ 0.10, 0.12, 4
-- __License__ [MIT][]
+- __Node:__ 0.10, 0.12, 4, 5
 
 If you're using this module, and need help, you can:
 
@@ -21,7 +20,7 @@ If you're using this module, and need help, you can:
 
 seneca-basic's source can be read in an annotated fashion by,
 - running `npm run annotate`
-- viewing [online](http://rjrodger.github.io/seneca-basic/doc/basic.html)
+- viewing [online](http://senecajs.github.io/seneca-basic/doc/basic.html)
 
 The annotated source can be found locally at [./doc/seneca-basic.html]().
 
@@ -50,14 +49,6 @@ var seneca = require('seneca')({
 })
 
 seneca.use(require('seneca-basic'))
-```
-
-## Test  
-
-To run tests, simply use npm:
-
-```sh
-npm run test
 ```
 
 ## Action Patterns
@@ -138,21 +129,37 @@ _Response:_
 - 0.3.0: 2015-06-15: Normalized _note_ patterns. Prep for Seneca 0.6.2.
 
 ## Contributing
+
 The [Senecajs org][] encourage open participation. If you feel you can help in any way, be it with
 documentation, examples, extra testing, or new features please get in touch.
 
+## Test  
+
+To run tests, simply use npm:
+
+```sh
+npm run test
+```
+
 ## License
-Copyright Richard Rodger and other contributors 2015, Licensed under [MIT][].
+
+Copyright (c) 2014, Richard Rodger and other contributors.
+Licensed under [MIT][].
 
 [travis-badge]: https://travis-ci.org/senecajs/seneca-basic.svg?branch=master
 [travis-url]: https://travis-ci.org/senecajs/seneca-basic
 [gitter-badge]: https://badges.gitter.im/Join%20Chat.svg
 [gitter-url]: https://gitter.im/senecajs/seneca
-
+[npm-badge]: https://img.shields.io/npm/v/seneca-basic.svg
+[npm-url]: https://npmjs.com/package/seneca-basic
+[david-badge]: https://david-dm.org/senecajs/seneca-basic.svg
+[david-url]: https://david-dm.org/senecajs/seneca-basic
+[coveralls-badge]:https://coveralls.io/repos/senecajs/seneca-basic/badge.svg?branch=master&service=github
+[coveralls-url]: https://coveralls.io/github/senecajs/seneca-basic?branch=master
 [MIT]: ./LICENSE
 [Senecajs org]: https://github.com/senecajs/
 [Seneca.js]: https://www.npmjs.com/package/seneca
 [senecajs.org]: http://senecajs.org/
 [github issue]: https://github.com/senecajs/seneca-basic/issues
 [@senecajs]: http://twitter.com/senecajs
-[seneca-admin]: https://github.com/rjrodger/seneca-admin
+[seneca-admin]: https://github.com/senecajs/seneca-admin
