@@ -143,7 +143,7 @@ npm run test
 
 ## License
 
-Copyright (c) 2014, Richard Rodger and other contributors.
+Copyright (c) 2014 - 2016, Richard Rodger and other contributors.
 Licensed under [MIT][].
 
 [travis-badge]: https://travis-ci.org/senecajs/seneca-basic.svg?branch=master
