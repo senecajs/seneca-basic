@@ -1,19 +1,19 @@
 /* Copyright (c) 2010-2015 Richard Rodger */
 /* jshint node:true, asi:true, eqnull:true */
-"use strict";
+'use strict'
 
 var assert = require('assert')
-var _      = require('lodash')
-var util   = require('util')
+var _ = require('lodash')
+var util = require('util')
 
 var Lab = require('lab')
 var lab = exports.lab = Lab.script()
 
-require('events').EventEmitter.defaultMaxListeners = Infinity;
+require('events').EventEmitter.defaultMaxListeners = Infinity
 
-var seneca;
+var seneca
 
-function createSeneca() {
+function createSeneca () {
   return require('seneca')({
     log: 'silent',
     define_plugins: {
@@ -23,16 +23,15 @@ function createSeneca() {
   .use('../basic.js')
 }
 
-lab.experiment('seneca.basic', function() {
-
+lab.experiment('seneca.basic', function () {
   lab.beforeEach(function (done) {
     seneca = createSeneca()
     if (seneca.version >= '2.0.0') {
       seneca.use('entity')
     }
-    seneca.ready()
-    done();
-  });
+    seneca.ready(done)
+    done()
+  })
 
   lab.test('note get', function (done) {
     seneca
@@ -140,7 +139,7 @@ lab.experiment('seneca.basic', function() {
   })
 
   lab.test('quickcode basic', function (done) {
-    seneca.act({role:'basic', cmd:'quickcode'}, function (err, code) {
+    seneca.act({role: 'basic', cmd: 'quickcode'}, function (err, code) {
       assert.ifError(err)
       assert.ok(code)
       assert.equal(code.length, 8)
@@ -150,7 +149,7 @@ lab.experiment('seneca.basic', function() {
   })
 
   lab.test('quickcode basic with length', function (done) {
-    seneca.act({role:'basic', cmd:'quickcode', length: 12}, function (err, code) {
+    seneca.act({role: 'basic', cmd: 'quickcode', length: 12}, function (err, code) {
       assert.ifError(err)
       assert.ok(code)
       assert.equal(code.length, 12)
@@ -160,7 +159,7 @@ lab.experiment('seneca.basic', function() {
   })
 
   lab.test('quickcode basic with alphabet', function (done) {
-    seneca.act({role:'basic', cmd:'quickcode', alphabet: 'abcdef'}, function (err, code) {
+    seneca.act({role: 'basic', cmd: 'quickcode', alphabet: 'abcdef'}, function (err, code) {
       assert.ifError(err)
       assert.ok(code)
       assert.equal(code.length, 8)
@@ -170,7 +169,7 @@ lab.experiment('seneca.basic', function() {
   })
 
   lab.test('quickcode basic with curses', function (done) {
-    seneca.act({role:'basic', cmd:'quickcode', curses: 'damn'}, function (err, code) {
+    seneca.act({role: 'basic', cmd: 'quickcode', curses: 'damn'}, function (err, code) {
       assert.ifError(err)
       assert.ok(code)
       assert.equal(code.length, 8)
