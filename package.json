@@ -5,6 +5,7 @@
   "main": "basic.js",
   "scripts": {
     "test": "./test.sh",
+    "test:node6": "LAB_FLAGS='--leaks' && npm test",
     "build": "./build.sh",
     "annotate": "docco basic.js -o doc"
   },

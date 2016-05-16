@@ -14,4 +14,4 @@ fi
 if [ ! -d "./node_modules/seneca" ]; then
   npm install seneca@plugin
 fi
-./node_modules/.bin/lab -v test -L -m 3000 -t 80
+./node_modules/.bin/lab -v test -L -m 3000 -t 87 $LAB_FLAGS
