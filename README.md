@@ -5,6 +5,7 @@
 [![npm version][npm-badge]][npm-url]
 [![Dependency Status][david-badge]][david-url]
 [![Build Status][travis-badge]][travis-url]
+[![Coveralls][BadgeCoveralls]][Coveralls]
 [![Gitter chat][gitter-badge]][gitter-url]
 
 This plugin is included with the main seneca module and provides a
@@ -22,7 +23,7 @@ seneca-basic's source can be read in an annotated fashion by,
 - running `npm run annotate`
 - viewing [online](http://senecajs.github.io/seneca-basic/doc/basic.html)
 
-The annotated source can be found locally at [./doc/seneca-basic.html]().
+The annotated source can be found locally at [./doc/seneca-basic.html](./doc/basic.html).
 
 ## Install
 
@@ -154,8 +155,8 @@ Licensed under [MIT][].
 [npm-url]: https://npmjs.com/package/seneca-basic
 [david-badge]: https://david-dm.org/senecajs/seneca-basic.svg
 [david-url]: https://david-dm.org/senecajs/seneca-basic
-[coveralls-badge]:https://coveralls.io/repos/senecajs/seneca-basic/badge.svg?branch=master&service=github
-[coveralls-url]: https://coveralls.io/github/senecajs/seneca-basic?branch=master
+[Coveralls]: https://coveralls.io/github/senecajs/seneca-basic?branch=master
+[BadgeCoveralls]: https://coveralls.io/repos/github/senecajs/seneca-basic/badge.svg?branch=master
 [MIT]: ./LICENSE
 [Senecajs org]: https://github.com/senecajs/
 [Seneca.js]: https://www.npmjs.com/package/seneca
