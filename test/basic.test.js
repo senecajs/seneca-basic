@@ -30,7 +30,6 @@ lab.experiment('seneca.basic', function () {
       seneca.use('entity')
     }
     seneca.ready(done)
-    done()
   })
 
   lab.test('note get', function (done) {

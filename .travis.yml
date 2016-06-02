@@ -17,3 +17,6 @@ before_script:
   - npm uninstall seneca
   - npm install seneca$SENECA_VER
   - echo FLAGS:$LAB_FLAGS
+  
+after_script:
+  - npm run coverage
