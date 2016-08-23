@@ -28,7 +28,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "2.0.x",
-    "lodash": "4.14.2",
+    "lodash": "4.15.0",
     "nid": "0.3.2"
   },
   "devDependencies": {
