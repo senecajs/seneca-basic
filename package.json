@@ -43,7 +43,7 @@
     "coveralls": "2.11.x"
   },
   "files": [
-    "LICENSE.txt",
+    "LICENSE",
     "README.md",
     "basic.js",
     "lib/common.js",
