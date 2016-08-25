@@ -11,8 +11,6 @@
 This plugin is included with the main seneca module and provides a
 small set of basic utility action patterns.
 
-- __Node:__ 0.10, 0.12, 4, 5
-
 If you're using this module, and need help, you can:
 
 - Post a [github issue](https://github.com/senecajs/seneca-basic/issues)
