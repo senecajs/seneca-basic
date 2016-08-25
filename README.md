@@ -25,6 +25,9 @@ seneca-basic's source can be read in an annotated fashion by,
 
 The annotated source can be found locally at [./doc/seneca-basic.html](./doc/basic.html).
 
+### Seneca compatibility
+Supports Seneca versions **1.x** - **3.x**
+
 ## Install
 
 This plugin module is included in the main Seneca module.
@@ -134,7 +137,7 @@ _Response:_
 The [Senecajs org][] encourage open participation. If you feel you can help in any way, be it with
 documentation, examples, extra testing, or new features please get in touch.
 
-## Test  
+## Test
 
 To run tests, simply use npm:
 
