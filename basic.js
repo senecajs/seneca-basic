@@ -45,6 +45,8 @@ function registerEntity (seneca, entity) {
 
 function registerUniqueId (seneca) {
   seneca.add({role: Common.plugin.name, cmd: 'quickcode', deprecate$: Common.messages.MARKED_FOR_REMOVAL}, Uniqueid.quickcode)
+
+  // TODO: this should be a utility function, not a pattern
   seneca.add({role: Common.plugin.name, cmd: 'generate_id'}, Uniqueid.generate_id)
 
   // Legacy cmds use role:'util'
