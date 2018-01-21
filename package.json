@@ -52,8 +52,5 @@
     "lib/entity.js",
     "lib/note.js",
     "lib/uniqueid.js"
-  ],
-  "pre-commit": [
-    "test"
   ]
 }
