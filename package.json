@@ -1,13 +1,12 @@
 {
   "name": "seneca-basic",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Seneca utility plugin.",
   "main": "basic.js",
   "scripts": {
-    "test": "lab -v -P test -L -t 80",
-    "coveralls": "lab -s -P test -r lcov | coveralls",
-    "coverage": "lab -v -P test -L -t 80 -r html > docs/coverage.html",
-    "annotate": "docco basic.js lib/*.js -o docs/annotated"
+    "test": "lab -v -P test -L -t 80 -I URL,URLSearchParams",
+    "coveralls": "lab -s -P test -r lcov  -I URL,URLSearchParams | coveralls",
+    "coverage": "lab -v -P test -L -t 80 -r html > coverage.html"
   },
   "repository": {
     "type": "git",
@@ -27,20 +26,15 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "async": "2.0.x",
-    "lodash": "4.17.4",
-    "nid": "0.3.2"
+    "async": "2.6",
+    "lodash": "4.17",
+    "nid": "0.3"
   },
   "devDependencies": {
-    "seneca": "plugin",
-    "async": "2.0.x",
-    "seneca-entity": "1.2.x",
-    "docco": "0.7.x",
-    "eslint-config-seneca": "3.x.x",
-    "eslint-plugin-standard": "2.x.x",
-    "lab": "13.1.x",
-    "pre-commit": "1.1.x",
-    "coveralls": "2.11.x"
+    "seneca": "github:senecajs/seneca",
+    "seneca-entity": "github:senecajs/seneca-entity",
+    "lab": "14",
+    "coveralls": "3"
   },
   "files": [
     "LICENSE",
@@ -50,8 +44,5 @@
     "lib/entity.js",
     "lib/note.js",
     "lib/uniqueid.js"
-  ],
-  "pre-commit": [
-    "test"
   ]
 }

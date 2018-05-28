@@ -1,2 +1,4 @@
-node_modules
+test/stubs
+docs/examples
+tmp
 test
