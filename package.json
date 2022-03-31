@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@hapi/lab": "^22.0.3",
-    "@seneca/maintain": "^0.0.15",
+    "@seneca/maintain": "^0.0.16",
     "coveralls": "^3.0.9",
     "prettier": "^1.19.1",
     "seneca": "^3.20.0",
