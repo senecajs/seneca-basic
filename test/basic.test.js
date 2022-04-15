@@ -11,6 +11,8 @@ const it = make_it(lab);
 
 const Seneca = require("seneca");
 
+const { Maintain } = require('@seneca/maintain')
+
 require("events").EventEmitter.defaultMaxListeners = Infinity;
 
 function createSeneca() {
@@ -360,3 +362,5 @@ function make_it(lab) {
     );
   };
 }
+
+Maintain()

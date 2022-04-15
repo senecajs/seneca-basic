@@ -1,5 +1,5 @@
 {
-  "name": "@seneca/basic",
+  "name": "seneca-basic",
   "version": "1.0.0",
   "description": "Seneca utility plugin.",
   "main": "basic.js",
