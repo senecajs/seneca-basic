@@ -10,6 +10,9 @@
 [![Coveralls][badgecoveralls]][coveralls]
 [![Gitter chat][gitter-badge]][gitter-url]
 
+| ![Voxgig](https://www.voxgig.com/res/img/vgt01r.png) | This open source module is sponsored and supported by [Voxgig](https://www.voxgig.com). |
+|---|---|
+
 This plugin is included with the main seneca module and provides a
 small set of basic utility action patterns.
 
