@@ -3,8 +3,36 @@
 
 # @seneca/basic
 
+# @seneca/basic
+
 | ![Voxgig](https://www.voxgig.com/res/img/vgt01r.png) | This open source module is sponsored and supported by [Voxgig](https://www.voxgig.com). |
-|---|---|
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------- |
+
+[![npm version][npm-badge]][npm-url]
+[![Dependency Status][david-badge]][david-url]
+[![Build Status][travis-badge]][travis-url]
+[![Coveralls][badgecoveralls]][coveralls]
+[![Gitter chat][gitter-badge]][gitter-url]
+
+This plugin is included with the main seneca module and provides a
+small set of basic utility action patterns.
+
+If you're using this module, and need help, you can:
+
+- Post a [github issue](https://github.com/senecajs/seneca-basic/issues)
+- Tweet to [@senecajs](http://twitter.com/senecajs)
+- Ask on the [Gitter][gitter-url]
+
+seneca-basic's source can be read in an annotated fashion by,
+
+- running `npm run annotate`
+- viewing [online](http://senecajs.github.io/seneca-basic/doc/basic.html)
+
+The annotated source can be found locally at [./doc/seneca-basic.html](./doc/basic.html).
+
+### Seneca compatibility
+
+Supports Seneca versions **1.x** - **3.x**
 
 ## Install
 
