@@ -2,7 +2,10 @@
 
 > A [Seneca.js][] utility plugin
 
-# seneca-basic
+# @seneca/basic
+
+| ![Voxgig](https://www.voxgig.com/res/img/vgt01r.png) | This open source module is sponsored and supported by [Voxgig](https://www.voxgig.com). |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------- |
 
 [![npm version][npm-badge]][npm-url]
 [![Dependency Status][david-badge]][david-url]
