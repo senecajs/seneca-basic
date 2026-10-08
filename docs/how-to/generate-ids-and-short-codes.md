@@ -1,7 +1,15 @@
 # Generate ids and short codes
 
-Goal: give records, links or vouchers short random identifiers from a
-Seneca action, with control over length and characters.
+Goal: give records short random identifiers from a Seneca action, with
+control over length and characters.
+
+These identifiers are not secret. nid draws their characters with
+`Math.random()`, which is not cryptographically secure, and a longer id
+makes repeats rarer without making it harder to guess. Do not use them
+where knowing an id grants something: voucher or discount codes that
+can be redeemed, password reset, invitation or sharing links, session
+or API tokens. Use `crypto.randomUUID()` or `crypto.randomBytes()` from
+`node:crypto` for those.
 
 The plugin has two patterns for this. `role:basic,cmd:generate_id` is
 the one to use. `role:basic,cmd:quickcode` is older, accepts a custom

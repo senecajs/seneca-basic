@@ -87,7 +87,10 @@ Both patterns use the [nid](https://www.npmjs.com/package/nid) module
 (version 0.3): random characters are drawn from an alphabet until the
 length is reached, and a result that contains a word from a curse list
 is discarded and generated again. The replies are plain strings, not
-objects.
+objects. The characters are drawn with `Math.random()`, so the
+identifiers are not cryptographically secure and must not be used as
+secrets (see
+[Generate ids and short codes](../how-to/generate-ids-and-short-codes.md)).
 
 ### Generate id
 

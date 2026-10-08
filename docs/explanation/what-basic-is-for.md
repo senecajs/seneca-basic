@@ -51,7 +51,10 @@ in entities.
 The identifiers come from [nid](https://www.npmjs.com/package/nid)
 version 0.3, which draws random characters from an alphabet and rejects
 results that contain a word from a curse list. nid describes itself as
-a generator for identifiers that people see, such as short links.
+a generator for identifiers that people see, such as short links. It
+uses `Math.random()` and is not cryptographically secure, so the
+identifiers are labels, not secrets: a code that grants access needs
+`node:crypto`.
 
 Random ids are not unique by construction, unlike UUIDs. With the
 default length of 6 characters a repeat becomes likely after tens of
