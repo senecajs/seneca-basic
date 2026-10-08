@@ -1,0 +1,52 @@
+From ff6399d58396ed6dee5db37b9138b5eb3b14bedd Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Thu, 8 Oct 2026 07:03:39 +0000
+Subject: [PATCH] ci: add the build workflow
+
+Continuous integration for pushes and pull requests on master (and
+main): install and test on Node.js 24 (the default target) and 22 on
+ubuntu-latest. No npm cache, because no lockfile is tracked. Replaces
+the Travis CI configuration, which was removed.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01LaHppcejXbSsAH4BZXNsjV
+---
+ .github/workflows/build.yml | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+ create mode 100644 .github/workflows/build.yml
+
+diff --git a/.github/workflows/build.yml b/.github/workflows/build.yml
+new file mode 100644
+index 0000000..5c9e4ad
+--- /dev/null
++++ b/.github/workflows/build.yml
+@@ -0,0 +1,26 @@
++# Continuous integration: install and test on the supported Node.js
++# versions (24 is the default target, 22 is supported).
++
++name: build
++
++on:
++  push:
++    branches: [master, main]
++  pull_request:
++    branches: [master, main]
++
++jobs:
++  test:
++    runs-on: ubuntu-latest
++    strategy:
++      matrix:
++        node-version: [24.x, 22.x]
++    steps:
++      - uses: actions/checkout@v4
++      - name: Use Node.js ${{ matrix.node-version }}
++        uses: actions/setup-node@v4
++        with:
++          node-version: ${{ matrix.node-version }}
++      - run: npm install
++      - run: npm run build --if-present
++      - run: npm test
+-- 
+2.43.0
+
