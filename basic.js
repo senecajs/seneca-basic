@@ -1,4 +1,4 @@
-/* Copyright (c) 2011-2015 Richard Rodger */
+/* Copyright (c) 2011-2026 Richard Rodger and other contributors, MIT License */
 "use strict";
 
 var Path = require("path");
@@ -66,16 +66,23 @@ function registerNote(seneca, note) {
 
 function registerEntity(seneca, entity) {
   // TODO: this should be a utility function, not a pattern
-  seneca.add(
-    {
-      role: Common.plugin.name,
-      cmd: "ensure_entity",
-      pin: { required$: true },
-      // TODO: accept entity spec here, e.g. strings like 'sys/user'
-      entmap: { object$: true, required$: true }
-    },
-    entity.ensure
-  );
+  // TODO: accept entity spec here, e.g. strings like 'sys/user'
+  var ensure_pattern = { role: Common.plugin.name, cmd: "ensure_entity" };
+
+  // Message validation rules: pin (a pattern) and entmap (an object of
+  // entities) are required. Seneca 3.38 and Seneca 4 compile pattern
+  // rules with Gubu, so the rules are built with the core's own copy,
+  // seneca.util.Gubu. Releases without it keep the earlier rule objects.
+  var Gubu = seneca.util.Gubu;
+  if (Gubu) {
+    ensure_pattern.pin = Gubu.Required(Gubu.Any());
+    ensure_pattern.entmap = Gubu.Required(Gubu.Open({}));
+  } else {
+    ensure_pattern.pin = { required$: true };
+    ensure_pattern.entmap = { object$: true, required$: true };
+  }
+
+  seneca.add(ensure_pattern, entity.ensure);
   seneca.add(
     { role: Common.plugin.name, cmd: "define_sys_entity" },
     entity.defineSys
