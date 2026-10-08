@@ -1,13 +1,13 @@
 {
   "name": "@seneca/basic",
-  "version": "1.0.0",
-  "description": "Seneca utility plugin.",
+  "version": "1.1.0",
+  "description": "Seneca plugin with basic utility actions: notes shared between plugins, short codes, identifiers and system entity definitions.",
   "main": "basic.js",
   "scripts": {
-    "test": "lab -v -P test -L -t 80 -I URL,URLSearchParams",
-    "prettier": "prettier --write *.js lib/*.js bin/*.js test/*.js",
-    "coveralls": "lab -s -P test -r lcov  -I URL,URLSearchParams | coveralls",
-    "coverage": "lab -v -P test -L -t 80 -r html > coverage.html",
+    "test": "node --test test/*.test.js",
+    "coverage": "node --test --experimental-test-coverage test/*.test.js",
+    "maintain": "node test/maintain.js",
+    "prettier": "prettier --write *.js lib/*.js test/*.js docs/examples/*.js",
     "clean": "rm -rf node_modules package-lock.json yarn.lock",
     "reset": "npm run clean && npm i && npm test",
     "repo-tag": "REPO_VERSION=`node -e \"console.log(require('./package').version)\"` && echo TAG: v$REPO_VERSION && git commit -a -m v$REPO_VERSION && git push && git tag v$REPO_VERSION && git push --tags;",
@@ -33,24 +33,27 @@
   "license": "MIT",
   "dependencies": {
     "async": "^3.1.1",
-    "lodash": "^4.17.15",
     "nid": "^0.3.2"
   },
+  "peerDependencies": {
+    "seneca": ">=3 || >=4.0.0-rc5"
+  },
   "devDependencies": {
-    "@hapi/lab": "^22.0.3",
-    "@seneca/maintain": "^0.0.19",
-    "coveralls": "^3.0.9",
+    "@seneca/maintain": "^0.1.0",
     "prettier": "^1.19.1",
-    "seneca": "^3.20.0",
-    "seneca-entity": "^7.0.0"
+    "seneca": "^4.0.0-rc5",
+    "seneca-entity": "^28.1.0"
   },
   "files": [
     "LICENSE",
     "README.md",
+    "CHANGES.md",
     "basic.js",
     "lib/common.js",
     "lib/entity.js",
     "lib/note.js",
-    "lib/uniqueid.js"
+    "lib/uniqueid.js",
+    "docs/**/*.md",
+    "docs/examples/*.js"
   ]
 }
