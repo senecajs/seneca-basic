@@ -9,16 +9,14 @@ finished program is
 
 ## 1. Install
 
-Seneca 4 needs Node.js 22 or later (24 is recommended). In a new
-directory:
+Seneca 4 needs Node.js 24 or later. In a new directory:
 
 ```sh
 npm init -y
-npm install seneca@^4.0.0-rc5 seneca-entity @seneca/basic
+npm install seneca@^4 @seneca/entity @seneca/basic
 ```
 
-`seneca@^4.0.0-rc5` installs the Seneca 4 prerelease, and Seneca 4.0.0
-once it is published. `seneca-entity` is needed for steps 5 and 6 only.
+`@seneca/entity` is needed for steps 5 and 6 only.
 
 ## 2. Create the instance
 
@@ -29,11 +27,11 @@ const Seneca = require("seneca");
 
 async function main() {
   const seneca = Seneca({ log: "warn", debug: { deprecation: false } })
-    .use("entity")
+    .use("@seneca/entity")
     .use("@seneca/basic");
 
   try {
-    await new Promise(resolve => seneca.ready(resolve));
+    await seneca.ready();
 
     // the next steps go here
   } finally {
@@ -50,12 +48,11 @@ main().catch(err => {
 * `log: 'warn'` keeps the log quiet. `debug: { deprecation: false }`
   turns off the warning that Seneca logs for deprecated patterns; step 4
   calls one.
-* `use('entity')` loads seneca-entity, which brings an in-memory store.
+* `use('@seneca/entity')` loads the entity plugin, which brings an
+  in-memory store.
   `use('@seneca/basic')` loads this plugin; its plugin name is `basic`,
   so `use('basic')` works too.
-* `seneca.ready(resolve)` waits until the plugins are loaded. The
-  callback form is used because `await seneca.ready()` does not resolve
-  on an idle instance in Seneca 4.0.0-rc5.
+* `await seneca.ready()` waits until the plugins are loaded.
 * `finally` closes the instance on success and on failure, so that the
   process exits.
 
@@ -254,13 +251,12 @@ plugin's own source tree.
 ## Next steps
 
 * [Share notes between plugins](../how-to/share-notes-between-plugins.md)
-  shows the notes in their natural place: plugin start up, with
-  callbacks that also run on Seneca 3.
+  shows the notes in their natural place: plugin start up.
 * [Generate ids and short codes](../how-to/generate-ids-and-short-codes.md),
   [Define system entities](../how-to/define-system-entities.md) and
   [Load entities for actions](../how-to/load-entities-for-actions.md)
   go deeper into each feature.
-* [Use with Seneca 3 and 4](../how-to/use-with-seneca-3-and-4.md) lists
-  what to do when the same code must run on both versions.
+* [Upgrade to Seneca 4](../how-to/upgrade-to-seneca-4.md) lists what to
+  change in an application that used `seneca-basic` on Seneca 3.
 * The [Action patterns](../reference/messages.md) reference has every
   parameter and reply.

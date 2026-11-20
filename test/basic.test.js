@@ -11,7 +11,7 @@ const it = make_it();
 function createSeneca(options) {
   return Seneca()
     .test()
-    .use("entity")
+    .use("@seneca/entity")
     .use("..", options);
 }
 
@@ -654,7 +654,7 @@ describe("seneca.basic", function() {
     seneca.close(done);
   });
 
-  it("utilfuncs deepextend and legacy util export", function(done) {
+  it("utilfuncs deepextend", function(done) {
     var seneca = Seneca()
       .test()
       .use("..");
@@ -663,7 +663,6 @@ describe("seneca.basic", function() {
     Assert.deepEqual(basic.deepextend({ a: { b: 1 } }, { a: { c: 2 } }), {
       a: { b: 1, c: 2 }
     });
-    Assert.equal(seneca.export("util"), basic);
     seneca.close(done);
   });
 });

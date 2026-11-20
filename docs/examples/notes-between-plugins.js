@@ -1,6 +1,6 @@
 /* Share settings between plugins with notes.
  * Run: node docs/examples/notes-between-plugins.js
- * Callbacks only, so the program runs on Seneca 3 and Seneca 4.
+ * The program is explained in docs/how-to/share-notes-between-plugins.md.
  */
 "use strict";
 

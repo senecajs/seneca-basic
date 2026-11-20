@@ -15,7 +15,7 @@ async function main() {
     .use(require("../.."));
 
   try {
-    await new Promise(resolve => seneca.ready(resolve));
+    await seneca.ready();
 
     // Ids: lower case letters and digits, 6 characters by default.
     console.log(await seneca.post("role:basic,cmd:generate_id"));

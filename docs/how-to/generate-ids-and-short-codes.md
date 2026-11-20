@@ -18,8 +18,7 @@ string. The full parameter lists are in
 [Action patterns: Identifiers](../reference/messages.md#identifiers).
 The complete program is
 [docs/examples/ids-and-codes.js](../examples/ids-and-codes.js); it uses
-the promise API of Seneca 4 (see
-[Use with Seneca 3 and 4](use-with-seneca-3-and-4.md) for Seneca 3).
+the promise API of Seneca 4.
 
 ## 1. Set up the instance
 
@@ -32,7 +31,7 @@ async function main() {
   );
 
   try {
-    await new Promise(resolve => seneca.ready(resolve));
+    await seneca.ready();
 
     // the code of the next steps goes here
   } finally {
@@ -46,7 +45,7 @@ main().catch(err => {
 });
 ```
 
-seneca-entity is not needed for identifiers. `debug.deprecation: false`
+`@seneca/entity` is not needed for identifiers. `debug.deprecation: false`
 hides the warning that `quickcode` logs (step 4). The `finally` block
 closes the instance on success and on failure.
 
@@ -120,8 +119,8 @@ Every `quickcode` call logs a warning while the Seneca option
 You have three choices:
 
 * Use `generate_id` when the default alphabet is good enough.
-* Call nid without a message. Seneca 3.38 and Seneca 4 expose their own
-  copy as `seneca.util.Nid`:
+* Call nid without a message. Seneca exposes its own copy as
+  `seneca.util.Nid`:
 
   ```js
   const makeCode = seneca.util.Nid({

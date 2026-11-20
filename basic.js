@@ -70,17 +70,11 @@ function registerEntity(seneca, entity) {
   var ensure_pattern = { role: Common.plugin.name, cmd: "ensure_entity" };
 
   // Message validation rules: pin (a pattern) and entmap (an object of
-  // entities) are required. Seneca 3.38 and Seneca 4 compile pattern
-  // rules with Gubu, so the rules are built with the core's own copy,
-  // seneca.util.Gubu. Releases without it keep the earlier rule objects.
-  var Gubu = seneca.util.Gubu;
-  if (Gubu) {
-    ensure_pattern.pin = Gubu.Required(Gubu.Any());
-    ensure_pattern.entmap = Gubu.Required(Gubu.Open({}));
-  } else {
-    ensure_pattern.pin = { required$: true };
-    ensure_pattern.entmap = { object$: true, required$: true };
-  }
+  // entities) are required. Seneca 4 compiles pattern rules with shape,
+  // so the rules are built with the builders it provides, seneca.valid.
+  var valid = seneca.valid;
+  ensure_pattern.pin = valid.Required(valid.Any());
+  ensure_pattern.entmap = valid.Required(valid.Open({}));
 
   seneca.add(ensure_pattern, entity.ensure);
   seneca.add(
@@ -133,7 +127,7 @@ var utilfuncs = {
 module.exports = function basic(options) {
   var seneca = this;
 
-  options = seneca.util.deepextend({ limit: { parallel: 11 } }, options);
+  options = seneca.util.deep({ limit: { parallel: 11 } }, options);
 
   var note = Note();
   var entity = Entity(options);
@@ -142,7 +136,8 @@ module.exports = function basic(options) {
   registerEntity(seneca, entity);
   registerNote(seneca, note);
 
-  utilfuncs.deepextend = seneca.util.deepextend;
+  // Kept for compatibility: the same function as seneca.util.deep.
+  utilfuncs.deepextend = seneca.util.deep;
   return {
     export: utilfuncs
   };
@@ -150,7 +145,7 @@ module.exports = function basic(options) {
 
 module.exports.preload = function() {
   var seneca = this;
-  utilfuncs.deepextend = seneca.util.deepextend;
+  utilfuncs.deepextend = seneca.util.deep;
 
   var meta = {
     name: Common.plugin.name,

@@ -3,11 +3,10 @@
 [Seneca](https://senecajs.org) plugin with a small set of basic utility
 action patterns: in-memory notes that plugins share, random identifiers
 and short codes, and two helpers for
-[seneca-entity](https://github.com/senecajs/seneca-entity) that record
+[@seneca/entity](https://github.com/senecajs/seneca-entity) that record
 which entities an application uses and load the entities named in a
-message before an action runs. It works with Seneca 3 (tested with
-3.38) and Seneca 4 (4.0.0-rc5 and later); the tests run on Node.js 24
-and 22.
+message before an action runs. It works with Seneca 4 on Node.js 24
+or later. For Seneca 3 use `seneca-basic` 1.0.0.
 
 [![Npm][BadgeNpm]][Npm]
 [![Build][BadgeBuild]][Build]
@@ -18,17 +17,18 @@ and 22.
 ## Install
 
 ```sh
-npm install @seneca/basic
+npm install seneca@^4 @seneca/basic
 ```
 
-Versions up to 1.0.0 were published as `seneca-basic`; from the next
-version the package is `@seneca/basic`. `seneca` is a peer dependency
-(`>=3 || >=4.0.0-rc5`). The two entity patterns also need
-`seneca-entity`:
+Versions up to 1.0.0 were published as `seneca-basic`; from version
+2.0.0 the package is `@seneca/basic`. `seneca` is a peer dependency
+(`^4.0.0`). The two entity patterns also need `@seneca/entity`
+(`npm install @seneca/entity`), an optional peer dependency
+(`^29.0.0`):
 
 ```js
 const seneca = require("seneca")()
-  .use("entity") // seneca-entity: only for define_sys_entity and ensure_entity
+  .use("@seneca/entity") // only for define_sys_entity and ensure_entity
   .use("@seneca/basic");
 ```
 
@@ -43,7 +43,7 @@ async function main() {
   const seneca = Seneca({ log: "warn" }).use("@seneca/basic");
 
   try {
-    await new Promise(resolve => seneca.ready(resolve));
+    await seneca.ready();
 
     // Notes: values shared between the plugins of this instance.
     await seneca.post("role:basic,note:true,cmd:set,key:currency,value:EUR");
@@ -64,9 +64,9 @@ main().catch(err => {
 });
 ```
 
-`seneca.post` is the promise form of `act` built into Seneca 4. On
-Seneca 3 use `seneca.act(msg, callback)`, or load seneca-promisify; see
-[Use with Seneca 3 and 4](docs/how-to/use-with-seneca-3-and-4.md).
+`seneca.post` is the promise form of `act` built into Seneca 4. To move
+an application from Seneca 3, see
+[Upgrade to Seneca 4](docs/how-to/upgrade-to-seneca-4.md).
 
 ## More Examples
 
@@ -81,8 +81,7 @@ Seneca 3 use `seneca.act(msg, callback)`, or load seneca-promisify; see
   ([program](docs/examples/system-entities.js))
 * [Load entities for actions](docs/how-to/load-entities-for-actions.md)
   ([program](docs/examples/load-entities.js))
-* [Use with Seneca 3 and 4](docs/how-to/use-with-seneca-3-and-4.md)
-  ([program](docs/examples/seneca-3-and-4.js))
+* [Upgrade to Seneca 4](docs/how-to/upgrade-to-seneca-4.md)
 * All runnable programs: [docs/examples](docs/examples/README.md).
 
 The full documentation index is [docs/README.md](docs/README.md).
@@ -128,7 +127,7 @@ replies and errors, are in [Action patterns](docs/reference/messages.md).
 | Export | Purpose | Reference |
 | ------ | ------- | --------- |
 | `seneca.export("basic").pathnorm(path)` | Normalize a path and remove trailing slashes. | [Exports and utility functions](docs/reference/api.md#pathnorm) |
-| `seneca.export("basic").deepextend(...objects)` | The instance's `seneca.util.deepextend`. | [Exports and utility functions](docs/reference/api.md#deepextend) |
+| `seneca.export("basic").deepextend(...objects)` | The instance's `seneca.util.deep`, kept under its old name. | [Exports and utility functions](docs/reference/api.md#deepextend) |
 
 ## Contributing
 
@@ -137,23 +136,20 @@ participation. If you feel you can help in any way, be it with
 documentation, examples, extra testing, or new features, please get in
 touch.
 
-The tests use the Node.js test runner and run against the Seneca 4
-prerelease (development dependency `seneca@^4.0.0-rc5`) with
-seneca-entity 28. Node.js 24 is the default target; Node.js 22 is also
-tested.
+The tests use the Node.js test runner on Node.js 24 or later, and run
+against Seneca 4 (development dependency `seneca@^4.0.0`) with
+`@seneca/entity` 29.
 
 ```sh
 npm install
 npm test
 ```
 
-To test against an unreleased Seneca build, or against Seneca 3,
-install its tarball or version without saving it, then restore the
-development dependency:
+To test against an unreleased Seneca build, install its tarball without
+saving it, then restore the development dependency:
 
 ```sh
-npm install --no-save /path/to/seneca-4.0.0.tgz && npm test
-npm install --no-save seneca@3 && npm test
+npm install --no-save /path/to/seneca-4.x.y.tgz && npm test
 npm install
 ```
 
@@ -171,17 +167,17 @@ The plugin dates from 2011. Earlier Seneca releases shipped it with
 the main seneca module; Seneca 3.38 (whose only default plugin is
 transport) and Seneca 4 (which has none) do not, so applications load
 it with `use`. Versions up to 1.0.0 were published as `seneca-basic`;
-from the next version the package is `@seneca/basic`. Version 0.3.0
+from version 2.0.0 the package is `@seneca/basic`. Version 0.3.0
 (2015) normalized the note patterns, version 0.5.0 (2016) added Seneca 3
-support, and version 1.1.0 (2026) adds Seneca 4 support, fixes
-`ensure_entity`, drops the `lodash` dependency and reorganizes the
-documentation. Changes between versions are listed in
-[CHANGES.md](CHANGES.md).
+support, and version 2.0.0 (2026) is the first `@seneca/basic`: it
+supports Seneca 4 only, fixes `ensure_entity`, drops the `lodash`
+dependency and reorganizes the documentation. Changes between versions
+are listed in [CHANGES.md](CHANGES.md).
 
 | Seneca | Plugin | Node.js |
 | ------ | ------ | ------- |
-| 3.x (tested with 3.38) | 1.1.0 and later; 1.0.0 except `role:basic,cmd:ensure_entity` | tested on 24 and 22 |
-| 4.0.0-rc5 and 4.0.0 | 1.1.0 and later; 1.0.0 except `ensure_entity` | 22 or later (a Seneca 4.0.0 requirement); tested on 24 and 22 |
+| 3.x | `seneca-basic` 1.0.0, except `role:basic,cmd:ensure_entity` | as required by Seneca 3 |
+| 4.x | `@seneca/basic` 2.0.0 and later | 24 or later |
 
 Licensed under [MIT](LICENSE). Copyright (c) 2011-2026 Richard Rodger
 and other contributors.

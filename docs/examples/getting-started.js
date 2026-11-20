@@ -8,15 +8,14 @@ const Seneca = require("seneca");
 
 async function main() {
   const seneca = Seneca({ log: "warn", debug: { deprecation: false } })
-    // seneca-entity is needed only by define_sys_entity and ensure_entity.
-    .use("entity")
+    // @seneca/entity is needed only by define_sys_entity and ensure_entity.
+    .use("@seneca/entity")
     // This file lives inside the plugin repository. In your own project
     // write seneca.use("@seneca/basic") to load the installed package.
     .use(require("../.."));
 
   try {
-    // The callback form of ready works on every Seneca 4 prerelease.
-    await new Promise(resolve => seneca.ready(resolve));
+    await seneca.ready();
 
     // 1. Notes: small values shared between plugins.
     await seneca.post("role:basic,note:true,cmd:set,key:currency,value:EUR");

@@ -1,3 +1,34 @@
+## 2.0.0 2026-11-20
+
+First release as `@seneca/basic`. Versions up to 1.0.0 were published as
+`seneca-basic`. 1.1.0 was not published: its changes, listed in the
+1.1.0 entry below, are part of 2.0.0, among them the `ensure_entity`
+fixes and its behaviour change.
+
+* Seneca 4: the peer dependency is `seneca` `^4.0.0`. Seneca 3 users stay
+  on `seneca-basic@1`.
+* Renamed from `seneca-basic` to `@seneca/basic`. The plugin name stays
+  `basic`.
+* Node.js 24 or later (`engines.node` `>=24`).
+* `@seneca/entity` `^29.0.0` is an optional peer dependency, needed only
+  by `define_sys_entity` and `ensure_entity`. Seneca 4 cannot load
+  `seneca-entity` 28.
+* The `ensure_entity` message rules are built with `seneca.valid`
+  instead of `seneca.util.Gubu` (B1, D2). The fallback to the rule
+  objects of 1.0.0 for Seneca releases without `seneca.util.Gubu` is
+  removed.
+* Options are merged with `seneca.util.deep`, and the exported
+  `deepextend` is `seneca.util.deep`, so the plugin no longer causes the
+  `SENECA_DEP_UTIL_GUBU` and `SENECA_DEP_UTIL_DEEPEXTEND` warnings (D2).
+* Tests load `@seneca/entity` by its full name and no longer use the
+  deprecated `seneca.export('util')` alias. Development dependencies:
+  `seneca` `^4.0.0` and `@seneca/entity` `^29.0.0`, which replaces
+  `seneca-entity`.
+* Documentation: "Use with Seneca 3 and 4" is replaced by "Upgrade to
+  Seneca 4", and the explanation "Seneca 3 and 4" by "Seneca 4". The
+  example `seneca-3-and-4.js` is removed. The examples load
+  `@seneca/entity` and use `await seneca.ready()`.
+
 ## 1.1.0 2026-10-08
 
 * Seneca 4 prerelease support. The plugin runs on Seneca 3 (tested with

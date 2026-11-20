@@ -7,9 +7,8 @@ specific tasks; look things up in the reference; read the explanations
 to understand the design.
 
 The plugin provides in-memory notes that plugins share, random
-identifiers and short codes, and two helpers for seneca-entity. It runs
-on Seneca 3 (tested with 3.38) and Seneca 4; the pages say where the
-versions differ.
+identifiers and short codes, and two helpers for `@seneca/entity`. It
+runs on Seneca 4; for Seneca 3 use `seneca-basic` 1.0.0.
 
 ## Tutorials
 
@@ -33,7 +32,7 @@ Task oriented recipes for people who already know the basics.
 | [Share notes between plugins](how-to/share-notes-between-plugins.md) | `set` and `get`, `push`, `pop` and `list`, reading notes during plugin initialization, key conventions. |
 | [Define system entities](how-to/define-system-entities.md) | Recording zone, base, name and fields in `sys/entity`, the entry forms, reading the definitions, the parallel limit. |
 | [Load entities for actions](how-to/load-entities-for-actions.md) | `ensure_entity`: turning ids and `entity$` objects in messages into entities before an action runs, unknown ids. |
-| [Use with Seneca 3 and 4](how-to/use-with-seneca-3-and-4.md) | Peer range, plugin options, callbacks and promises, errors, `ready`, testing on both versions. |
+| [Upgrade to Seneca 4](how-to/upgrade-to-seneca-4.md) | Moving from `seneca-basic` on Seneca 3: packages, plugin names, promises, errors, `export('util')`, deprecation warnings. |
 
 ## Reference
 
@@ -51,8 +50,8 @@ Understanding oriented discussions of how the plugin works and why.
 
 | Explanation | Topic |
 | ----------- | ----- |
-| [What the basic plugin is for](explanation/what-basic-is-for.md) | Utilities as action patterns, notes as a start up coordination channel, identifiers, the relation to seneca-entity, limits. |
-| [Seneca 3 and 4](explanation/seneca-3-and-4.md) | What changed between the Seneca versions and how the plugin handles each change. |
+| [What the basic plugin is for](explanation/what-basic-is-for.md) | Utilities as action patterns, notes as a start up coordination channel, identifiers, the relation to `@seneca/entity`, limits. |
+| [Seneca 4](explanation/seneca-4.md) | What changed from Seneca 3 to Seneca 4, how the plugin handles each change, and why version 2 supports Seneca 4 only. |
 
 ## Feature index
 
@@ -76,7 +75,7 @@ defines no error codes of its own.
 | `role:util,cmd:quickcode` | legacy action pattern with a deprecation notice | [Action patterns: Legacy role:util patterns](reference/messages.md#legacy-roleutil-patterns) |
 | `role:util,cmd:generate_id`, `role:util,cmd:define_sys_entity`, `role:util,cmd:ensure_entity` | legacy action patterns | [Action patterns: Legacy role:util patterns](reference/messages.md#legacy-roleutil-patterns) |
 | `seneca.export('basic')` | export | [Exports and utility functions: Exports](reference/api.md#exports) |
-| `seneca.export('util')` | export alias provided by Seneca | [Exports and utility functions: Exports](reference/api.md#exports) |
+| `seneca.export('util')` | deprecated export alias provided by Seneca | [Exports and utility functions: Exports](reference/api.md#exports) |
 | `pathnorm(path)` | utility function | [Exports and utility functions: pathnorm](reference/api.md#pathnorm) |
 | `deepextend(...objects)` | utility function | [Exports and utility functions: deepextend](reference/api.md#deepextend) |
 | `preload` | plugin definition hook | [Exports and utility functions: Plugin definition](reference/api.md#plugin-definition) |
