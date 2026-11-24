@@ -12,11 +12,10 @@ or in the instance options under `plugin.basic`:
 Seneca({ plugin: { basic: { limit: { parallel: 5 } } } });
 ```
 
-Both forms work on Seneca 3.38 and Seneca 4. A top level `basic`
-property (`Seneca({ basic: { ... } })`) is rejected by the option
-validation of both versions.
+A top level `basic` property (`Seneca({ basic: { ... } })`) is
+rejected by option validation.
 
-The options are merged over the defaults with `seneca.util.deepextend`.
+The options are merged over the defaults with `seneca.util.deep`.
 The plugin defines no `defaults` shape, so unknown options are accepted
 and ignored, and no type checks are made when the plugin loads.
 

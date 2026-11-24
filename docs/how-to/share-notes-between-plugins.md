@@ -10,8 +10,7 @@ lists (`push`, `pop` and `list`). The same key may be used in both
 stores; they do not interfere. The patterns are described in
 [Action patterns: Notes](../reference/messages.md#notes). The complete
 program is
-[docs/examples/notes-between-plugins.js](../examples/notes-between-plugins.js);
-it runs on Seneca 3 and Seneca 4.
+[docs/examples/notes-between-plugins.js](../examples/notes-between-plugins.js).
 
 ## 1. Load the basic plugin first
 

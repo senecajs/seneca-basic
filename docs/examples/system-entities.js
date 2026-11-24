@@ -8,13 +8,13 @@ const Seneca = require("seneca");
 
 async function main() {
   const seneca = Seneca({ log: "warn" })
-    .use("entity")
+    .use("@seneca/entity")
     // Inside the plugin repository the plugin is loaded by path; in your
     // own project write .use("@seneca/basic").
     .use(require("../.."));
 
   try {
-    await new Promise(resolve => seneca.ready(resolve));
+    await seneca.ready();
 
     // Canon strings, as an array or as a comma separated string.
     const first = await seneca.post("role:basic,cmd:define_sys_entity", {

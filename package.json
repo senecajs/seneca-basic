@@ -1,6 +1,6 @@
 {
   "name": "@seneca/basic",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Seneca plugin with basic utility actions: notes shared between plugins, short codes, identifiers and system entity definitions.",
   "main": "basic.js",
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/senecajs/seneca-basic"
+    "url": "git+https://github.com/senecajs/seneca-basic.git"
   },
   "keywords": [
     "seneca",
@@ -36,13 +36,19 @@
     "nid": "^0.3.2"
   },
   "peerDependencies": {
-    "seneca": ">=3 || >=4.0.0-rc5"
+    "seneca": "^4.0.0",
+    "@seneca/entity": "^29.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@seneca/entity": {
+      "optional": true
+    }
   },
   "devDependencies": {
+    "@seneca/entity": "^29.0.0",
     "@seneca/maintain": "^0.1.0",
     "prettier": "^1.19.1",
-    "seneca": "^4.0.0-rc5",
-    "seneca-entity": "^28.1.0"
+    "seneca": "^4.0.0"
   },
   "files": [
     "LICENSE",
@@ -55,5 +61,11 @@
     "lib/uniqueid.js",
     "docs/**/*.md",
     "docs/examples/*.js"
-  ]
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

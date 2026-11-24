@@ -64,16 +64,17 @@ thousands of ids (the numbers are in
 the older pattern with a configurable alphabet and curse list, is marked
 for removal and kept for compatibility.
 
-## Relation to seneca-entity
+## Relation to @seneca/entity
 
-The plugin does not depend on
-[seneca-entity](https://github.com/senecajs/seneca-entity), but its two
-entity patterns only make sense with it:
+The plugin does not require
+[@seneca/entity](https://github.com/senecajs/seneca-entity), which is an
+optional peer dependency, but its two entity patterns only make sense
+with it:
 
 * `define_sys_entity` keeps a registry of the entities an application
   uses, as `sys/entity` entities with zone, base, name and fields, so
   that the application can describe itself to tools. It calls
-  `seneca.make$` and `seneca.util.parsecanon`, which seneca-entity adds
+  `seneca.make$` and `seneca.util.parsecanon`, which `@seneca/entity` adds
   to the instance. A definition is written once: an existing definition
   is replied as it is and never updated by this pattern. Up to
   `limit.parallel` entries are processed at the same time, using the

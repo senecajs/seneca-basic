@@ -18,11 +18,11 @@ const Seneca = require("seneca");
 
 async function main() {
   const seneca = Seneca({ log: "silent" })
-    .use("entity")
+    .use("@seneca/entity")
     .use("@seneca/basic");
 
   try {
-    await new Promise(resolve => seneca.ready(resolve));
+    await seneca.ready();
 
     // the code of the next steps goes here
   } finally {
@@ -127,8 +127,7 @@ try {
   then calls the original action through `prior`. A `load$` error is
   replied as the action's error.
 * The message must have `pin` and `entmap`, and `entmap` must be an
-  object; otherwise Seneca 3.38 and Seneca 4 reply with an
-  `act_invalid_msg` error. The legacy `role:util,cmd:ensure_entity`
+  object; otherwise Seneca replies with an `act_invalid_msg` error. The legacy `role:util,cmd:ensure_entity`
   pattern has no validation.
 * Sending `ensure_entity` twice for the same pin wraps the actions
   twice.

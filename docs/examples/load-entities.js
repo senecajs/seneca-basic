@@ -9,13 +9,13 @@ const Seneca = require("seneca");
 async function main() {
   // log: "silent" because the program prints the expected error itself.
   const seneca = Seneca({ log: "silent" })
-    .use("entity")
+    .use("@seneca/entity")
     // Inside the plugin repository the plugin is loaded by path; in your
     // own project write .use("@seneca/basic").
     .use(require("../.."));
 
   try {
-    await new Promise(resolve => seneca.ready(resolve));
+    await seneca.ready();
 
     // The action expects msg.product to be an entity (null for an
     // unknown id).

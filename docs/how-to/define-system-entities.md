@@ -5,9 +5,9 @@ name and field names, in the `sys/entity` collection, so that tools such
 as an administration interface can list them.
 
 `role:basic,cmd:define_sys_entity` needs
-[seneca-entity](https://github.com/senecajs/seneca-entity) and an entity
-store. seneca-entity 28 includes seneca-mem-store and uses it when no
-other store is loaded, which is enough to try the examples. The
+[@seneca/entity](https://github.com/senecajs/seneca-entity) and an entity
+store. `@seneca/entity` 29 includes `@seneca/mem-store` and uses it when
+no other store is loaded, which is enough to try the examples. The
 parameters are listed in
 [Action patterns: Define system entity](../reference/messages.md#define-system-entity).
 The complete program is
@@ -20,11 +20,11 @@ const Seneca = require("seneca");
 
 async function main() {
   const seneca = Seneca({ log: "warn" })
-    .use("entity")
+    .use("@seneca/entity")
     .use("@seneca/basic");
 
   try {
-    await new Promise(resolve => seneca.ready(resolve));
+    await seneca.ready();
 
     // the code of the next steps goes here
   } finally {
@@ -141,7 +141,7 @@ Output:
 ]
 ```
 
-With callbacks, which also work on Seneca 3, write
+With callbacks, write
 `seneca.make("sys/entity").list$({}, function (err, list) { ... })`.
 
 ## Things to know

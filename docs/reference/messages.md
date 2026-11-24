@@ -5,11 +5,8 @@ Patterns are shown in Jsonic form:
 `seneca.act('role:basic,note:true,cmd:get,key:name', cb)` and
 `seneca.act({ role: 'basic', note: true, cmd: 'get', key: 'name' }, cb)`
 send the same message. On Seneca 4, `seneca.post(msg)` returns the
-reply as a promise; see
-[Use with Seneca 3 and 4](../how-to/use-with-seneca-3-and-4.md). The
-behaviour described here is the same on Seneca 3.38, 4.0.0-rc5 and
-4.0.0, except for the form of errors (see
-[Errors](api.md#errors)).
+reply as a promise. Errors are described in
+[Errors](api.md#errors).
 
 Every pattern also exists with `role:util` in place of `role:basic`; see
 [Legacy role:util patterns](#legacy-roleutil-patterns).
@@ -115,7 +112,7 @@ Pattern: `role:basic,cmd:quickcode`
 
 Deprecated. The pattern carries the notice `marked for removal in
 future`, and Seneca logs a `DEPRECATED` warning on every call while the
-`debug.deprecation` option is true (the default in Seneca 3 and 4). Use
+`debug.deprecation` option is true (the default). Use
 `generate_id`, or nid directly (`seneca.util.Nid`), in new code.
 
 | Parameter | Type | Default | Description |
@@ -132,7 +129,7 @@ codes until one is accepted.
 
 ## Entities
 
-Both patterns work with [seneca-entity](https://github.com/senecajs/seneca-entity).
+Both patterns work with [@seneca/entity](https://github.com/senecajs/seneca-entity).
 `define_sys_entity` calls `seneca.make$` and `seneca.util.parsecanon`,
 which that plugin adds; without it the action fails with a `TypeError`.
 `ensure_entity` calls the `load$` and `make$` methods of the entities you
@@ -185,7 +182,7 @@ Errors: a `load$` or `save$` error from the store is replied, and no
 further entries are started; `RangeError: concurrency limit cannot be
 less than 1` when `limit.parallel` is 0 or less; `action_timeout` when
 `limit.parallel` is not a number (see [Options](options.md)); a
-`TypeError` when seneca-entity is not loaded or an entry is `null`.
+`TypeError` when `@seneca/entity` is not loaded or an entry is `null`.
 
 ### Ensure entity
 
@@ -200,13 +197,11 @@ entities before the action runs.
 | `pin` | string, object or array of these | Required. The pattern or patterns of the actions to wrap. Every action that `seneca.list(pin)` returns (actions whose pattern contains the pin's properties) gets a wrapper. |
 | `entmap` | object | Required. Maps message property names to entities, usually created with `seneca.make('zone/base/name')`. The entity's `load$` and `make$` methods are used. |
 
-Validation: on Seneca 3.38 and Seneca 4 a message without `pin`,
-without `entmap`, or with an `entmap` that is not an object is rejected
-with the Seneca error `act_invalid_msg`. The rules are Gubu shapes built
-with `seneca.util.Gubu`. Seneca releases that do not provide
-`seneca.util.Gubu` get the rule objects of version 1.0.0
-(`pin: { required$: true }`, `entmap: { object$: true, required$: true }`)
-instead.
+Validation: a message without `pin`, without `entmap`, or with an
+`entmap` that is not an object is rejected with the Seneca error
+`act_invalid_msg`. The rules are built with the shape builders that
+Seneca provides as `seneca.valid`: `pin` is `Required(Any())` and
+`entmap` is `Required(Open({}))`.
 
 Reply: none (`null`). The wrappers are in place when the reply arrives.
 
